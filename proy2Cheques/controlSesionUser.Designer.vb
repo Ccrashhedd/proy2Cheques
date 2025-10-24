@@ -23,9 +23,9 @@ Partial Class controlSesionUser
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         MaterialCard1 = New MaterialSkin.Controls.MaterialCard()
-        MaterialLabel1 = New MaterialSkin.Controls.MaterialLabel()
         MaterialLabel2 = New MaterialSkin.Controls.MaterialLabel()
         MaterialButton1 = New MaterialSkin.Controls.MaterialButton()
+        MaterialLabel1 = New MaterialSkin.Controls.MaterialLabel()
         MaterialButton2 = New MaterialSkin.Controls.MaterialButton()
         MaterialCard1.SuspendLayout()
         SuspendLayout()
@@ -38,7 +38,7 @@ Partial Class controlSesionUser
         MaterialCard1.Controls.Add(MaterialLabel1)
         MaterialCard1.Depth = 0
         MaterialCard1.ForeColor = Color.FromArgb(CByte(222), CByte(0), CByte(0), CByte(0))
-        MaterialCard1.Location = New Point(0, 0)
+        MaterialCard1.Location = New Point(14, 3)
         MaterialCard1.Margin = New Padding(14)
         MaterialCard1.MouseState = MaterialSkin.MouseState.HOVER
         MaterialCard1.Name = "MaterialCard1"
@@ -46,24 +46,12 @@ Partial Class controlSesionUser
         MaterialCard1.Size = New Size(200, 108)
         MaterialCard1.TabIndex = 0
         ' 
-        ' MaterialLabel1
-        ' 
-        MaterialLabel1.AutoSize = True
-        MaterialLabel1.Depth = 0
-        MaterialLabel1.Font = New Font("Roboto", 14F, FontStyle.Regular, GraphicsUnit.Pixel)
-        MaterialLabel1.Location = New Point(42, 12)
-        MaterialLabel1.MouseState = MaterialSkin.MouseState.HOVER
-        MaterialLabel1.Name = "MaterialLabel1"
-        MaterialLabel1.Size = New Size(107, 19)
-        MaterialLabel1.TabIndex = 0
-        MaterialLabel1.Text = "MaterialLabel1"
-        ' 
         ' MaterialLabel2
         ' 
         MaterialLabel2.AutoSize = True
         MaterialLabel2.Depth = 0
         MaterialLabel2.Font = New Font("Roboto", 14F, FontStyle.Regular, GraphicsUnit.Pixel)
-        MaterialLabel2.Location = New Point(42, 39)
+        MaterialLabel2.Location = New Point(45, 42)
         MaterialLabel2.MouseState = MaterialSkin.MouseState.HOVER
         MaterialLabel2.Name = "MaterialLabel2"
         MaterialLabel2.Size = New Size(107, 19)
@@ -90,24 +78,37 @@ Partial Class controlSesionUser
         MaterialButton1.UseAccentColor = False
         MaterialButton1.UseVisualStyleBackColor = True
         ' 
+        ' MaterialLabel1
+        ' 
+        MaterialLabel1.AutoSize = True
+        MaterialLabel1.Depth = 0
+        MaterialLabel1.Font = New Font("Roboto", 14F, FontStyle.Regular, GraphicsUnit.Pixel)
+        MaterialLabel1.Location = New Point(42, 12)
+        MaterialLabel1.MouseState = MaterialSkin.MouseState.HOVER
+        MaterialLabel1.Name = "MaterialLabel1"
+        MaterialLabel1.Size = New Size(107, 19)
+        MaterialLabel1.TabIndex = 0
+        MaterialLabel1.Text = "MaterialLabel1"
+        ' 
         ' MaterialButton2
         ' 
         MaterialButton2.AutoSizeMode = AutoSizeMode.GrowAndShrink
+        MaterialButton2.BackColor = Color.LightCoral
         MaterialButton2.Density = MaterialSkin.Controls.MaterialButton.MaterialButtonDensity.Default
         MaterialButton2.Depth = 0
         MaterialButton2.HighEmphasis = True
         MaterialButton2.Icon = Nothing
-        MaterialButton2.Location = New Point(544, 12)
+        MaterialButton2.Location = New Point(645, 6)
         MaterialButton2.Margin = New Padding(4, 6, 4, 6)
         MaterialButton2.MouseState = MaterialSkin.MouseState.HOVER
         MaterialButton2.Name = "MaterialButton2"
         MaterialButton2.NoAccentTextColor = Color.Empty
-        MaterialButton2.Size = New Size(158, 36)
+        MaterialButton2.Size = New Size(77, 36)
         MaterialButton2.TabIndex = 1
-        MaterialButton2.Text = "MaterialButton2"
+        MaterialButton2.Text = "Cerrar"
         MaterialButton2.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained
         MaterialButton2.UseAccentColor = False
-        MaterialButton2.UseVisualStyleBackColor = True
+        MaterialButton2.UseVisualStyleBackColor = False
         ' 
         ' controlSesionUser
         ' 
@@ -116,7 +117,7 @@ Partial Class controlSesionUser
         Controls.Add(MaterialButton2)
         Controls.Add(MaterialCard1)
         Name = "controlSesionUser"
-        Size = New Size(726, 108)
+        Size = New Size(726, 115)
         MaterialCard1.ResumeLayout(False)
         MaterialCard1.PerformLayout()
         ResumeLayout(False)

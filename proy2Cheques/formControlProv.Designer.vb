@@ -23,13 +23,11 @@ Partial Class formControlProv
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         SplitContainer1 = New SplitContainer()
-        MaterialTabControl1 = New MaterialSkin.Controls.MaterialTabControl()
-        TabPage1 = New TabPage()
-        TabPage2 = New TabPage()
+        DataGridView1 = New DataGridView()
         CType(SplitContainer1, ComponentModel.ISupportInitialize).BeginInit()
-        SplitContainer1.Panel2.SuspendLayout()
+        SplitContainer1.Panel1.SuspendLayout()
         SplitContainer1.SuspendLayout()
-        MaterialTabControl1.SuspendLayout()
+        CType(DataGridView1, ComponentModel.ISupportInitialize).BeginInit()
         SuspendLayout()
         ' 
         ' SplitContainer1
@@ -37,48 +35,23 @@ Partial Class formControlProv
         SplitContainer1.Dock = DockStyle.Fill
         SplitContainer1.Location = New Point(3, 64)
         SplitContainer1.Name = "SplitContainer1"
-        SplitContainer1.Orientation = Orientation.Horizontal
         ' 
-        ' SplitContainer1.Panel2
+        ' SplitContainer1.Panel1
         ' 
-        SplitContainer1.Panel2.Controls.Add(MaterialTabControl1)
+        SplitContainer1.Panel1.Controls.Add(DataGridView1)
         SplitContainer1.Size = New Size(806, 491)
-        SplitContainer1.SplitterDistance = 89
+        SplitContainer1.SplitterDistance = 571
         SplitContainer1.TabIndex = 1
         ' 
-        ' MaterialTabControl1
+        ' DataGridView1
         ' 
-        MaterialTabControl1.Controls.Add(TabPage1)
-        MaterialTabControl1.Controls.Add(TabPage2)
-        MaterialTabControl1.Depth = 0
-        MaterialTabControl1.Dock = DockStyle.Fill
-        MaterialTabControl1.Location = New Point(0, 0)
-        MaterialTabControl1.MouseState = MaterialSkin.MouseState.HOVER
-        MaterialTabControl1.Multiline = True
-        MaterialTabControl1.Name = "MaterialTabControl1"
-        MaterialTabControl1.SelectedIndex = 0
-        MaterialTabControl1.Size = New Size(806, 398)
-        MaterialTabControl1.TabIndex = 0
-        ' 
-        ' TabPage1
-        ' 
-        TabPage1.Location = New Point(4, 24)
-        TabPage1.Name = "TabPage1"
-        TabPage1.Padding = New Padding(3)
-        TabPage1.Size = New Size(798, 370)
-        TabPage1.TabIndex = 0
-        TabPage1.Text = "TabPage1"
-        TabPage1.UseVisualStyleBackColor = True
-        ' 
-        ' TabPage2
-        ' 
-        TabPage2.Location = New Point(4, 24)
-        TabPage2.Name = "TabPage2"
-        TabPage2.Padding = New Padding(3)
-        TabPage2.Size = New Size(798, 370)
-        TabPage2.TabIndex = 1
-        TabPage2.Text = "TabPage2"
-        TabPage2.UseVisualStyleBackColor = True
+        DataGridView1.AllowUserToDeleteRows = False
+        DataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        DataGridView1.Location = New Point(29, 64)
+        DataGridView1.Name = "DataGridView1"
+        DataGridView1.ReadOnly = True
+        DataGridView1.Size = New Size(516, 395)
+        DataGridView1.TabIndex = 2
         ' 
         ' formControlProv
         ' 
@@ -86,18 +59,15 @@ Partial Class formControlProv
         AutoScaleMode = AutoScaleMode.Dpi
         ClientSize = New Size(812, 558)
         Controls.Add(SplitContainer1)
-        DrawerTabControl = MaterialTabControl1
         Name = "formControlProv"
-        Text = "formControlProv"
-        SplitContainer1.Panel2.ResumeLayout(False)
+        Text = "Configuracion de Proveedores"
+        SplitContainer1.Panel1.ResumeLayout(False)
         CType(SplitContainer1, ComponentModel.ISupportInitialize).EndInit()
         SplitContainer1.ResumeLayout(False)
-        MaterialTabControl1.ResumeLayout(False)
+        CType(DataGridView1, ComponentModel.ISupportInitialize).EndInit()
         ResumeLayout(False)
     End Sub
 
     Friend WithEvents SplitContainer1 As SplitContainer
-    Friend WithEvents MaterialTabControl1 As MaterialSkin.Controls.MaterialTabControl
-    Friend WithEvents TabPage1 As TabPage
-    Friend WithEvents TabPage2 As TabPage
+    Friend WithEvents DataGridView1 As DataGridView
 End Class

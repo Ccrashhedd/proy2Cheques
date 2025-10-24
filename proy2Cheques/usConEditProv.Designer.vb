@@ -1,8 +1,8 @@
 ﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
-Partial Class formInicioSesion
-    Inherits MaterialSkin.Controls.MaterialForm
+Partial Class usConEditProv
+    Inherits System.Windows.Forms.UserControl
 
-    'Form reemplaza a Dispose para limpiar la lista de componentes.
+    'UserControl reemplaza a Dispose para limpiar la lista de componentes.
     <System.Diagnostics.DebuggerNonUserCode()> _
     Protected Overrides Sub Dispose(ByVal disposing As Boolean)
         Try
@@ -24,13 +24,13 @@ Partial Class formInicioSesion
     Private Sub InitializeComponent()
         SuspendLayout()
         ' 
-        ' formInicioSesion
+        ' usConEditProv
         ' 
         AutoScaleDimensions = New SizeF(7F, 15F)
         AutoScaleMode = AutoScaleMode.Font
-        ClientSize = New Size(800, 450)
-        Name = "formInicioSesion"
-        Text = "Iniciar Sesion"
+        Name = "usConEditProv"
+        Size = New Size(171, 351)
         ResumeLayout(False)
     End Sub
+
 End Class
