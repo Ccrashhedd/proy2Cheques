@@ -27,12 +27,16 @@ Partial Class controlSesionUser
         MaterialButton1 = New MaterialSkin.Controls.MaterialButton()
         MaterialLabel1 = New MaterialSkin.Controls.MaterialLabel()
         MaterialButton2 = New MaterialSkin.Controls.MaterialButton()
+        Label1 = New Label()
+        Label2 = New Label()
         MaterialCard1.SuspendLayout()
         SuspendLayout()
         ' 
         ' MaterialCard1
         ' 
         MaterialCard1.BackColor = Color.FromArgb(CByte(255), CByte(255), CByte(255))
+        MaterialCard1.Controls.Add(Label2)
+        MaterialCard1.Controls.Add(Label1)
         MaterialCard1.Controls.Add(MaterialLabel2)
         MaterialCard1.Controls.Add(MaterialButton1)
         MaterialCard1.Controls.Add(MaterialLabel1)
@@ -43,7 +47,7 @@ Partial Class controlSesionUser
         MaterialCard1.MouseState = MaterialSkin.MouseState.HOVER
         MaterialCard1.Name = "MaterialCard1"
         MaterialCard1.Padding = New Padding(14)
-        MaterialCard1.Size = New Size(200, 108)
+        MaterialCard1.Size = New Size(211, 108)
         MaterialCard1.TabIndex = 0
         ' 
         ' MaterialLabel2
@@ -51,7 +55,7 @@ Partial Class controlSesionUser
         MaterialLabel2.AutoSize = True
         MaterialLabel2.Depth = 0
         MaterialLabel2.Font = New Font("Roboto", 14F, FontStyle.Regular, GraphicsUnit.Pixel)
-        MaterialLabel2.Location = New Point(45, 42)
+        MaterialLabel2.Location = New Point(90, 42)
         MaterialLabel2.MouseState = MaterialSkin.MouseState.HOVER
         MaterialLabel2.Name = "MaterialLabel2"
         MaterialLabel2.Size = New Size(107, 19)
@@ -66,7 +70,7 @@ Partial Class controlSesionUser
         MaterialButton1.Depth = 0
         MaterialButton1.HighEmphasis = True
         MaterialButton1.Icon = Nothing
-        MaterialButton1.Location = New Point(38, 67)
+        MaterialButton1.Location = New Point(45, 67)
         MaterialButton1.Margin = New Padding(4, 6, 4, 6)
         MaterialButton1.MouseState = MaterialSkin.MouseState.HOVER
         MaterialButton1.Name = "MaterialButton1"
@@ -83,7 +87,7 @@ Partial Class controlSesionUser
         MaterialLabel1.AutoSize = True
         MaterialLabel1.Depth = 0
         MaterialLabel1.Font = New Font("Roboto", 14F, FontStyle.Regular, GraphicsUnit.Pixel)
-        MaterialLabel1.Location = New Point(42, 12)
+        MaterialLabel1.Location = New Point(90, 15)
         MaterialLabel1.MouseState = MaterialSkin.MouseState.HOVER
         MaterialLabel1.Name = "MaterialLabel1"
         MaterialLabel1.Size = New Size(107, 19)
@@ -98,7 +102,7 @@ Partial Class controlSesionUser
         MaterialButton2.Depth = 0
         MaterialButton2.HighEmphasis = True
         MaterialButton2.Icon = Nothing
-        MaterialButton2.Location = New Point(645, 6)
+        MaterialButton2.Location = New Point(660, 3)
         MaterialButton2.Margin = New Padding(4, 6, 4, 6)
         MaterialButton2.MouseState = MaterialSkin.MouseState.HOVER
         MaterialButton2.Name = "MaterialButton2"
@@ -110,6 +114,26 @@ Partial Class controlSesionUser
         MaterialButton2.UseAccentColor = False
         MaterialButton2.UseVisualStyleBackColor = False
         ' 
+        ' Label1
+        ' 
+        Label1.AutoSize = True
+        Label1.Font = New Font("Segoe UI Variable Display", 12F, FontStyle.Underline, GraphicsUnit.Point, CByte(0))
+        Label1.Location = New Point(17, 11)
+        Label1.Name = "Label1"
+        Label1.Size = New Size(67, 21)
+        Label1.TabIndex = 2
+        Label1.Text = "Usuario:"
+        ' 
+        ' Label2
+        ' 
+        Label2.AutoSize = True
+        Label2.Font = New Font("Segoe UI", 12F, FontStyle.Underline, GraphicsUnit.Point, CByte(0))
+        Label2.Location = New Point(17, 40)
+        Label2.Name = "Label2"
+        Label2.Size = New Size(71, 21)
+        Label2.TabIndex = 3
+        Label2.Text = "Nombre:"
+        ' 
         ' controlSesionUser
         ' 
         AutoScaleDimensions = New SizeF(7F, 15F)
@@ -117,7 +141,7 @@ Partial Class controlSesionUser
         Controls.Add(MaterialButton2)
         Controls.Add(MaterialCard1)
         Name = "controlSesionUser"
-        Size = New Size(726, 115)
+        Size = New Size(741, 115)
         MaterialCard1.ResumeLayout(False)
         MaterialCard1.PerformLayout()
         ResumeLayout(False)
@@ -129,5 +153,7 @@ Partial Class controlSesionUser
     Friend WithEvents MaterialButton1 As MaterialSkin.Controls.MaterialButton
     Friend WithEvents MaterialLabel1 As MaterialSkin.Controls.MaterialLabel
     Friend WithEvents MaterialButton2 As MaterialSkin.Controls.MaterialButton
+    Friend WithEvents Label2 As Label
+    Friend WithEvents Label1 As Label
 
 End Class

@@ -1,5 +1,12 @@
 ﻿Public Class controlSesionUser
     Private Sub controlSesionUser_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        If isLogged() = False Then
+            MaterialLabel1.Text = "--"
+            MaterialLabel2.Text = "--"
+        Else
+            MaterialLabel1.Text = idUsuario
+            MaterialLabel2.Text = nombreUsuario
+        End If
 
     End Sub
 
