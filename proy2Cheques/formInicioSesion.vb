@@ -44,11 +44,29 @@ Public Class formInicioSesion
         Dim usuario As String = MaterialTextBox1.Text
         Dim contrasena As String = MaterialTextBox2.Text
 
+
         If verificarCredenciales(usuario, contrasena) = True Then
-            ' Atención: loged espera (username, userid) en tu módulo de sesión.
-            ' Aquí solo tenemos el nombre; si necesitas el id real, cambia verificarCredenciales
-            ' para devolver el id o recuperar el registro completo.
-            loged(usuario, usuario) ' temporal: pasar usuario como id hasta obtener el id real
+            ' Obtner usuario y idUsuario para loged
+            Dim userName As String = String.Empty
+            Try
+                Dim consulta As String = "Select nombre FROM usuario WHERE idUsuario = @usuario"
+                Using cmd As New MySqlCommand(consulta, miconexion)
+                    cmd.Parameters.AddWithValue("@usuario", usuario)
+                    miconexion.Open()
+                    Dim reader As MySqlDataReader = cmd.ExecuteReader()
+                    If reader.Read() Then
+                        userName = reader("nombre").ToString()
+                    End If
+                    reader.Close()
+                End Using
+            Catch ex As Exception
+                MessageBox.Show("Error al verificar las credenciales: " & ex.Message)
+            Finally
+                If miconexion.State <> ConnectionState.Closed Then
+                    miconexion.Close()
+                End If
+            End Try
+            loged(userName, usuario)
             MessageBox.Show("Inicio de sesión exitoso.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information)
             Me.Hide()
         Else

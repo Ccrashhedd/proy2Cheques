@@ -14,5 +14,11 @@
 
     End Sub
 
+    Private Sub TabPage1_Click(sender As Object, e As EventArgs) Handles TabPage1.Click
 
+    End Sub
+
+    Private Sub TabPage1_Layout(sender As Object, e As LayoutEventArgs) Handles TabPage1.Layout
+
+    End Sub
 End Class
