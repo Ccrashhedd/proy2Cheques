@@ -10,6 +10,8 @@ Public Class formInicioSesion
         "Server=localhost;Database=proycheque;Uid=root;Pwd=;"
     Dim miconexion As New MySqlConnection(conexion)
 
+    Dim formPrincipal As New Form1
+
     Private Function verificarCredenciales(usuario As String, contrasena As String) As Boolean
         Try
             ' Asegúrate de que el nombre de columna es el correcto en tu BD: "contrasena" o "contrasen"
@@ -69,6 +71,10 @@ Public Class formInicioSesion
             loged(userName, usuario)
             MessageBox.Show("Inicio de sesión exitoso.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information)
             Me.Hide()
+            formPrincipal.Show()
+        ElseIf usuario = "" Or contrasena = "" Then
+            MessageBox.Show("Por favor, complete todos los campos.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            Return
         Else
             MessageBox.Show("Credenciales inválidas. Intente de nuevo.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
         End If

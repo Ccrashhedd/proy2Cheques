@@ -22,36 +22,13 @@ Partial Class formInicioSesion
     'No lo modifique con el editor de código.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        MaterialLabel1 = New MaterialSkin.Controls.MaterialLabel()
-        MaterialLabel2 = New MaterialSkin.Controls.MaterialLabel()
         MaterialButton1 = New MaterialSkin.Controls.MaterialButton()
         MaterialTextBox1 = New MaterialSkin.Controls.MaterialTextBox()
         MaterialTextBox2 = New MaterialSkin.Controls.MaterialTextBox()
+        Panel1 = New Panel()
+        Label1 = New Label()
+        Label2 = New Label()
         SuspendLayout()
-        ' 
-        ' MaterialLabel1
-        ' 
-        MaterialLabel1.AutoSize = True
-        MaterialLabel1.Depth = 0
-        MaterialLabel1.Font = New Font("Roboto", 14F, FontStyle.Regular, GraphicsUnit.Pixel)
-        MaterialLabel1.Location = New Point(71, 110)
-        MaterialLabel1.MouseState = MaterialSkin.MouseState.HOVER
-        MaterialLabel1.Name = "MaterialLabel1"
-        MaterialLabel1.Size = New Size(55, 19)
-        MaterialLabel1.TabIndex = 0
-        MaterialLabel1.Text = "Usuario"
-        ' 
-        ' MaterialLabel2
-        ' 
-        MaterialLabel2.AutoSize = True
-        MaterialLabel2.Depth = 0
-        MaterialLabel2.Font = New Font("Roboto", 14F, FontStyle.Regular, GraphicsUnit.Pixel)
-        MaterialLabel2.Location = New Point(44, 209)
-        MaterialLabel2.MouseState = MaterialSkin.MouseState.HOVER
-        MaterialLabel2.Name = "MaterialLabel2"
-        MaterialLabel2.Size = New Size(82, 19)
-        MaterialLabel2.TabIndex = 2
-        MaterialLabel2.Text = "Contraseña"
         ' 
         ' MaterialButton1
         ' 
@@ -60,7 +37,7 @@ Partial Class formInicioSesion
         MaterialButton1.Depth = 0
         MaterialButton1.HighEmphasis = True
         MaterialButton1.Icon = Nothing
-        MaterialButton1.Location = New Point(146, 271)
+        MaterialButton1.Location = New Point(288, 462)
         MaterialButton1.Margin = New Padding(4, 6, 4, 6)
         MaterialButton1.MouseState = MaterialSkin.MouseState.HOVER
         MaterialButton1.Name = "MaterialButton1"
@@ -79,7 +56,7 @@ Partial Class formInicioSesion
         MaterialTextBox1.Depth = 0
         MaterialTextBox1.Font = New Font("Roboto", 16F, FontStyle.Regular, GraphicsUnit.Pixel)
         MaterialTextBox1.LeadingIcon = Nothing
-        MaterialTextBox1.Location = New Point(146, 94)
+        MaterialTextBox1.Location = New Point(234, 228)
         MaterialTextBox1.MaxLength = 50
         MaterialTextBox1.MouseState = MaterialSkin.MouseState.OUT
         MaterialTextBox1.Multiline = False
@@ -96,7 +73,7 @@ Partial Class formInicioSesion
         MaterialTextBox2.Depth = 0
         MaterialTextBox2.Font = New Font("Roboto", 16F, FontStyle.Regular, GraphicsUnit.Pixel)
         MaterialTextBox2.LeadingIcon = Nothing
-        MaterialTextBox2.Location = New Point(146, 197)
+        MaterialTextBox2.Location = New Point(234, 373)
         MaterialTextBox2.MaxLength = 50
         MaterialTextBox2.MouseState = MaterialSkin.MouseState.OUT
         MaterialTextBox2.Multiline = False
@@ -106,25 +83,55 @@ Partial Class formInicioSesion
         MaterialTextBox2.Text = ""
         MaterialTextBox2.TrailingIcon = Nothing
         ' 
+        ' Panel1
+        ' 
+        Panel1.BackColor = Color.LightGreen
+        Panel1.Dock = DockStyle.Left
+        Panel1.Location = New Point(3, 64)
+        Panel1.Name = "Panel1"
+        Panel1.Size = New Size(165, 458)
+        Panel1.TabIndex = 7
+        ' 
+        ' Label1
+        ' 
+        Label1.AutoSize = True
+        Label1.Font = New Font("Century", 14.25F, FontStyle.Underline, GraphicsUnit.Point, CByte(0))
+        Label1.Location = New Point(191, 170)
+        Label1.Name = "Label1"
+        Label1.Size = New Size(81, 23)
+        Label1.TabIndex = 8
+        Label1.Text = "Usuario"
+        ' 
+        ' Label2
+        ' 
+        Label2.AutoSize = True
+        Label2.Font = New Font("Century", 14.25F, FontStyle.Underline, GraphicsUnit.Point, CByte(0))
+        Label2.Location = New Point(191, 322)
+        Label2.Name = "Label2"
+        Label2.Size = New Size(114, 23)
+        Label2.TabIndex = 9
+        Label2.Text = "Contraseña"
+        ' 
         ' formInicioSesion
         ' 
         AutoScaleDimensions = New SizeF(7F, 15F)
         AutoScaleMode = AutoScaleMode.Font
-        ClientSize = New Size(394, 331)
+        ClientSize = New Size(519, 525)
+        Controls.Add(Label2)
+        Controls.Add(Label1)
+        Controls.Add(Panel1)
         Controls.Add(MaterialTextBox2)
         Controls.Add(MaterialTextBox1)
         Controls.Add(MaterialButton1)
-        Controls.Add(MaterialLabel2)
-        Controls.Add(MaterialLabel1)
         Name = "formInicioSesion"
         Text = "Iniciar Sesion"
         ResumeLayout(False)
         PerformLayout()
     End Sub
-
-    Friend WithEvents MaterialLabel1 As MaterialSkin.Controls.MaterialLabel
-    Friend WithEvents MaterialLabel2 As MaterialSkin.Controls.MaterialLabel
     Friend WithEvents MaterialButton1 As MaterialSkin.Controls.MaterialButton
     Friend WithEvents MaterialTextBox1 As MaterialSkin.Controls.MaterialTextBox
     Friend WithEvents MaterialTextBox2 As MaterialSkin.Controls.MaterialTextBox
+    Friend WithEvents Panel1 As Panel
+    Friend WithEvents Label1 As Label
+    Friend WithEvents Label2 As Label
 End Class
