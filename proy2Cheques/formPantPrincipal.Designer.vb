@@ -25,17 +25,11 @@ Partial Class Form1
         SplitContainer1 = New SplitContainer()
         MaterialTabControl1 = New MaterialSkin.Controls.MaterialTabControl()
         TabPage1 = New TabPage()
-        MaterialLabel1 = New MaterialSkin.Controls.MaterialLabel()
-        Label1 = New Label()
         TabPage2 = New TabPage()
-        MaterialLabel2 = New MaterialSkin.Controls.MaterialLabel()
-        TabPage3 = New TabPage()
-        TabPage4 = New TabPage()
         CType(SplitContainer1, ComponentModel.ISupportInitialize).BeginInit()
         SplitContainer1.Panel2.SuspendLayout()
         SplitContainer1.SuspendLayout()
         MaterialTabControl1.SuspendLayout()
-        TabPage1.SuspendLayout()
         SuspendLayout()
         ' 
         ' SplitContainer1
@@ -56,8 +50,6 @@ Partial Class Form1
         ' 
         MaterialTabControl1.Controls.Add(TabPage1)
         MaterialTabControl1.Controls.Add(TabPage2)
-        MaterialTabControl1.Controls.Add(TabPage3)
-        MaterialTabControl1.Controls.Add(TabPage4)
         MaterialTabControl1.Depth = 0
         MaterialTabControl1.Dock = DockStyle.Fill
         MaterialTabControl1.Location = New Point(0, 0)
@@ -70,37 +62,13 @@ Partial Class Form1
         ' 
         ' TabPage1
         ' 
-        TabPage1.Controls.Add(MaterialLabel2)
-        TabPage1.Controls.Add(MaterialLabel1)
-        TabPage1.Controls.Add(Label1)
         TabPage1.Location = New Point(4, 24)
         TabPage1.Name = "TabPage1"
         TabPage1.Padding = New Padding(3)
         TabPage1.Size = New Size(759, 355)
         TabPage1.TabIndex = 0
-        TabPage1.Text = "Inicio"
+        TabPage1.Text = "TabPage1"
         TabPage1.UseVisualStyleBackColor = True
-        ' 
-        ' MaterialLabel1
-        ' 
-        MaterialLabel1.AutoSize = True
-        MaterialLabel1.Depth = 0
-        MaterialLabel1.Font = New Font("Roboto", 14F, FontStyle.Regular, GraphicsUnit.Pixel)
-        MaterialLabel1.ForeColor = SystemColors.ButtonHighlight
-        MaterialLabel1.Location = New Point(123, 32)
-        MaterialLabel1.MouseState = MaterialSkin.MouseState.HOVER
-        MaterialLabel1.Name = "MaterialLabel1"
-        MaterialLabel1.Size = New Size(1, 0)
-        MaterialLabel1.TabIndex = 1
-        ' 
-        ' Label1
-        ' 
-        Label1.AutoSize = True
-        Label1.Location = New Point(33, 62)
-        Label1.Name = "Label1"
-        Label1.Size = New Size(41, 15)
-        Label1.TabIndex = 0
-        Label1.Text = "Label1"
         ' 
         ' TabPage2
         ' 
@@ -109,39 +77,8 @@ Partial Class Form1
         TabPage2.Padding = New Padding(3)
         TabPage2.Size = New Size(759, 355)
         TabPage2.TabIndex = 1
-        TabPage2.Text = "Cheques"
+        TabPage2.Text = "TabPage2"
         TabPage2.UseVisualStyleBackColor = True
-        ' 
-        ' MaterialLabel2
-        ' 
-        MaterialLabel2.AutoSize = True
-        MaterialLabel2.Depth = 0
-        MaterialLabel2.Font = New Font("Roboto", 14F, FontStyle.Regular, GraphicsUnit.Pixel)
-        MaterialLabel2.Location = New Point(224, 89)
-        MaterialLabel2.MouseState = MaterialSkin.MouseState.HOVER
-        MaterialLabel2.Name = "MaterialLabel2"
-        MaterialLabel2.Size = New Size(1, 0)
-        MaterialLabel2.TabIndex = 2
-        ' 
-        ' TabPage3
-        ' 
-        TabPage3.Location = New Point(4, 24)
-        TabPage3.Name = "TabPage3"
-        TabPage3.Padding = New Padding(3)
-        TabPage3.Size = New Size(759, 355)
-        TabPage3.TabIndex = 2
-        TabPage3.Text = "Dispositivos"
-        TabPage3.UseVisualStyleBackColor = True
-        ' 
-        ' TabPage4
-        ' 
-        TabPage4.Location = New Point(4, 24)
-        TabPage4.Name = "TabPage4"
-        TabPage4.Padding = New Padding(3)
-        TabPage4.Size = New Size(759, 355)
-        TabPage4.TabIndex = 3
-        TabPage4.Text = "Consolidación"
-        TabPage4.UseVisualStyleBackColor = True
         ' 
         ' Form1
         ' 
@@ -156,8 +93,6 @@ Partial Class Form1
         CType(SplitContainer1, ComponentModel.ISupportInitialize).EndInit()
         SplitContainer1.ResumeLayout(False)
         MaterialTabControl1.ResumeLayout(False)
-        TabPage1.ResumeLayout(False)
-        TabPage1.PerformLayout()
         ResumeLayout(False)
     End Sub
 
@@ -165,10 +100,5 @@ Partial Class Form1
     Friend WithEvents MaterialTabControl1 As MaterialSkin.Controls.MaterialTabControl
     Friend WithEvents TabPage1 As TabPage
     Friend WithEvents TabPage2 As TabPage
-    Friend WithEvents MaterialLabel1 As MaterialSkin.Controls.MaterialLabel
-    Friend WithEvents Label1 As Label
-    Friend WithEvents MaterialLabel2 As MaterialSkin.Controls.MaterialLabel
-    Friend WithEvents TabPage3 As TabPage
-    Friend WithEvents TabPage4 As TabPage
 
 End Class
