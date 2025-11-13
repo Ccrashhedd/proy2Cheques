@@ -24,8 +24,10 @@ Partial Class Form1
     Private Sub InitializeComponent()
         SplitContainer1 = New SplitContainer()
         MaterialTabControl1 = New MaterialSkin.Controls.MaterialTabControl()
-        TabPage1 = New TabPage()
+        tabPageInicio = New TabPage()
         TabPage2 = New TabPage()
+        TabPage1 = New TabPage()
+        TabPage3 = New TabPage()
         CType(SplitContainer1, ComponentModel.ISupportInitialize).BeginInit()
         SplitContainer1.Panel2.SuspendLayout()
         SplitContainer1.SuspendLayout()
@@ -48,8 +50,10 @@ Partial Class Form1
         ' 
         ' MaterialTabControl1
         ' 
-        MaterialTabControl1.Controls.Add(TabPage1)
+        MaterialTabControl1.Controls.Add(tabPageInicio)
         MaterialTabControl1.Controls.Add(TabPage2)
+        MaterialTabControl1.Controls.Add(TabPage1)
+        MaterialTabControl1.Controls.Add(TabPage3)
         MaterialTabControl1.Depth = 0
         MaterialTabControl1.Dock = DockStyle.Fill
         MaterialTabControl1.Location = New Point(0, 0)
@@ -60,15 +64,15 @@ Partial Class Form1
         MaterialTabControl1.Size = New Size(767, 383)
         MaterialTabControl1.TabIndex = 0
         ' 
-        ' TabPage1
+        ' tabPageInicio
         ' 
-        TabPage1.Location = New Point(4, 24)
-        TabPage1.Name = "TabPage1"
-        TabPage1.Padding = New Padding(3)
-        TabPage1.Size = New Size(759, 355)
-        TabPage1.TabIndex = 0
-        TabPage1.Text = "TabPage1"
-        TabPage1.UseVisualStyleBackColor = True
+        tabPageInicio.Location = New Point(4, 24)
+        tabPageInicio.Name = "tabPageInicio"
+        tabPageInicio.Padding = New Padding(3)
+        tabPageInicio.Size = New Size(759, 355)
+        tabPageInicio.TabIndex = 0
+        tabPageInicio.Text = "Inicio"
+        tabPageInicio.UseVisualStyleBackColor = True
         ' 
         ' TabPage2
         ' 
@@ -77,8 +81,28 @@ Partial Class Form1
         TabPage2.Padding = New Padding(3)
         TabPage2.Size = New Size(759, 355)
         TabPage2.TabIndex = 1
-        TabPage2.Text = "TabPage2"
+        TabPage2.Text = "Cheques"
         TabPage2.UseVisualStyleBackColor = True
+        ' 
+        ' TabPage1
+        ' 
+        TabPage1.Location = New Point(4, 24)
+        TabPage1.Name = "TabPage1"
+        TabPage1.Padding = New Padding(3)
+        TabPage1.Size = New Size(759, 355)
+        TabPage1.TabIndex = 2
+        TabPage1.Text = "Depósitos"
+        TabPage1.UseVisualStyleBackColor = True
+        ' 
+        ' TabPage3
+        ' 
+        TabPage3.Location = New Point(4, 24)
+        TabPage3.Name = "TabPage3"
+        TabPage3.Padding = New Padding(3)
+        TabPage3.Size = New Size(759, 355)
+        TabPage3.TabIndex = 3
+        TabPage3.Text = "Conciliación"
+        TabPage3.UseVisualStyleBackColor = True
         ' 
         ' Form1
         ' 
@@ -98,7 +122,9 @@ Partial Class Form1
 
     Friend WithEvents SplitContainer1 As SplitContainer
     Friend WithEvents MaterialTabControl1 As MaterialSkin.Controls.MaterialTabControl
-    Friend WithEvents TabPage1 As TabPage
+    Friend WithEvents tabPageInicio As TabPage
     Friend WithEvents TabPage2 As TabPage
+    Friend WithEvents TabPage1 As TabPage
+    Friend WithEvents TabPage3 As TabPage
 
 End Class
