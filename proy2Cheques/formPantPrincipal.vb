@@ -86,4 +86,10 @@
     Private Sub Label1_Click(sender As Object, e As EventArgs)
 
     End Sub
+
+    Private Sub DataGridView2_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles DataGridView2.CellContentClick
+
+    End Sub
+
+
 End Class

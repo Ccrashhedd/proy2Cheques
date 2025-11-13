@@ -22,52 +22,134 @@ Partial Class formControlProv
     'No lo modifique con el editor de código.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        SplitContainer1 = New SplitContainer()
+        Dim DataGridViewCellStyle1 As DataGridViewCellStyle = New DataGridViewCellStyle()
         DataGridView1 = New DataGridView()
-        CType(SplitContainer1, ComponentModel.ISupportInitialize).BeginInit()
-        SplitContainer1.Panel1.SuspendLayout()
-        SplitContainer1.SuspendLayout()
+        columnIdProveedor = New DataGridViewTextBoxColumn()
+        columnNombre = New DataGridViewTextBoxColumn()
+        columnRUC = New DataGridViewTextBoxColumn()
+        columnUbicacion = New DataGridViewTextBoxColumn()
+        columnEditar = New DataGridViewButtonColumn()
+        columnEliminar = New DataGridViewButtonColumn()
+        MaterialButton1 = New MaterialSkin.Controls.MaterialButton()
+        MaterialLabel1 = New MaterialSkin.Controls.MaterialLabel()
         CType(DataGridView1, ComponentModel.ISupportInitialize).BeginInit()
         SuspendLayout()
         ' 
-        ' SplitContainer1
-        ' 
-        SplitContainer1.Dock = DockStyle.Fill
-        SplitContainer1.Location = New Point(3, 64)
-        SplitContainer1.Name = "SplitContainer1"
-        ' 
-        ' SplitContainer1.Panel1
-        ' 
-        SplitContainer1.Panel1.Controls.Add(DataGridView1)
-        SplitContainer1.Size = New Size(806, 491)
-        SplitContainer1.SplitterDistance = 571
-        SplitContainer1.TabIndex = 1
-        ' 
         ' DataGridView1
         ' 
+        DataGridView1.AllowUserToAddRows = False
         DataGridView1.AllowUserToDeleteRows = False
+        DataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.TopLeft
+        DataGridViewCellStyle1.BackColor = SystemColors.Control
+        DataGridViewCellStyle1.Font = New Font("Segoe UI", 9F)
+        DataGridViewCellStyle1.ForeColor = SystemColors.WindowText
+        DataGridViewCellStyle1.SelectionBackColor = SystemColors.Highlight
+        DataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText
+        DataGridViewCellStyle1.WrapMode = DataGridViewTriState.True
+        DataGridView1.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle1
         DataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        DataGridView1.Location = New Point(29, 64)
+        DataGridView1.Columns.AddRange(New DataGridViewColumn() {columnIdProveedor, columnNombre, columnRUC, columnUbicacion, columnEditar, columnEliminar})
+        DataGridView1.Location = New Point(69, 125)
         DataGridView1.Name = "DataGridView1"
         DataGridView1.ReadOnly = True
-        DataGridView1.Size = New Size(516, 395)
-        DataGridView1.TabIndex = 2
+        DataGridView1.Size = New Size(649, 392)
+        DataGridView1.TabIndex = 3
+        ' 
+        ' columnIdProveedor
+        ' 
+        columnIdProveedor.Frozen = True
+        columnIdProveedor.HeaderText = "ID Proveedor"
+        columnIdProveedor.Name = "columnIdProveedor"
+        columnIdProveedor.ReadOnly = True
+        ' 
+        ' columnNombre
+        ' 
+        columnNombre.Frozen = True
+        columnNombre.HeaderText = "Nombre Proveedor"
+        columnNombre.Name = "columnNombre"
+        columnNombre.ReadOnly = True
+        ' 
+        ' columnRUC
+        ' 
+        columnRUC.Frozen = True
+        columnRUC.HeaderText = "RUC"
+        columnRUC.Name = "columnRUC"
+        columnRUC.ReadOnly = True
+        ' 
+        ' columnUbicacion
+        ' 
+        columnUbicacion.Frozen = True
+        columnUbicacion.HeaderText = "Ubicacion"
+        columnUbicacion.Name = "columnUbicacion"
+        columnUbicacion.ReadOnly = True
+        ' 
+        ' columnEditar
+        ' 
+        columnEditar.Frozen = True
+        columnEditar.HeaderText = "Editar"
+        columnEditar.Name = "columnEditar"
+        columnEditar.ReadOnly = True
+        ' 
+        ' columnEliminar
+        ' 
+        columnEliminar.Frozen = True
+        columnEliminar.HeaderText = "Eliminar"
+        columnEliminar.Name = "columnEliminar"
+        columnEliminar.ReadOnly = True
+        ' 
+        ' MaterialButton1
+        ' 
+        MaterialButton1.AutoSizeMode = AutoSizeMode.GrowAndShrink
+        MaterialButton1.Density = MaterialSkin.Controls.MaterialButton.MaterialButtonDensity.Default
+        MaterialButton1.Depth = 0
+        MaterialButton1.HighEmphasis = True
+        MaterialButton1.Icon = Nothing
+        MaterialButton1.Location = New Point(631, 80)
+        MaterialButton1.Margin = New Padding(4, 6, 4, 6)
+        MaterialButton1.MouseState = MaterialSkin.MouseState.HOVER
+        MaterialButton1.Name = "MaterialButton1"
+        MaterialButton1.NoAccentTextColor = Color.Empty
+        MaterialButton1.Size = New Size(157, 36)
+        MaterialButton1.TabIndex = 4
+        MaterialButton1.Text = "Nuevo Proveedor"
+        MaterialButton1.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained
+        MaterialButton1.UseAccentColor = False
+        MaterialButton1.UseVisualStyleBackColor = True
+        ' 
+        ' MaterialLabel1
+        ' 
+        MaterialLabel1.AutoSize = True
+        MaterialLabel1.Depth = 0
+        MaterialLabel1.Font = New Font("Roboto", 24F, FontStyle.Bold, GraphicsUnit.Pixel)
+        MaterialLabel1.FontType = MaterialSkin.MaterialSkinManager.fontType.H5
+        MaterialLabel1.Location = New Point(23, 80)
+        MaterialLabel1.MouseState = MaterialSkin.MouseState.HOVER
+        MaterialLabel1.Name = "MaterialLabel1"
+        MaterialLabel1.Size = New Size(137, 29)
+        MaterialLabel1.TabIndex = 5
+        MaterialLabel1.Text = "Proveedores"
         ' 
         ' formControlProv
         ' 
         AutoScaleDimensions = New SizeF(96F, 96F)
         AutoScaleMode = AutoScaleMode.Dpi
-        ClientSize = New Size(812, 558)
-        Controls.Add(SplitContainer1)
+        ClientSize = New Size(801, 528)
+        Controls.Add(MaterialLabel1)
+        Controls.Add(MaterialButton1)
+        Controls.Add(DataGridView1)
         Name = "formControlProv"
         Text = "Configuracion de Proveedores"
-        SplitContainer1.Panel1.ResumeLayout(False)
-        CType(SplitContainer1, ComponentModel.ISupportInitialize).EndInit()
-        SplitContainer1.ResumeLayout(False)
         CType(DataGridView1, ComponentModel.ISupportInitialize).EndInit()
         ResumeLayout(False)
+        PerformLayout()
     End Sub
-
-    Friend WithEvents SplitContainer1 As SplitContainer
     Friend WithEvents DataGridView1 As DataGridView
+    Friend WithEvents columnIdProveedor As DataGridViewTextBoxColumn
+    Friend WithEvents columnNombre As DataGridViewTextBoxColumn
+    Friend WithEvents columnRUC As DataGridViewTextBoxColumn
+    Friend WithEvents columnUbicacion As DataGridViewTextBoxColumn
+    Friend WithEvents columnEditar As DataGridViewButtonColumn
+    Friend WithEvents columnEliminar As DataGridViewButtonColumn
+    Friend WithEvents MaterialButton1 As MaterialSkin.Controls.MaterialButton
+    Friend WithEvents MaterialLabel1 As MaterialSkin.Controls.MaterialLabel
 End Class
