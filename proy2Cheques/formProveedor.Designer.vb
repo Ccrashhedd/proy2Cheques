@@ -1,8 +1,8 @@
 ﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
-Partial Class usConEditProv
-    Inherits System.Windows.Forms.UserControl
+Partial Class formProveedor
+    Inherits MaterialSkin.Controls.MaterialForm
 
-    'UserControl reemplaza a Dispose para limpiar la lista de componentes.
+    'Form reemplaza a Dispose para limpiar la lista de componentes.
     <System.Diagnostics.DebuggerNonUserCode()> _
     Protected Overrides Sub Dispose(ByVal disposing As Boolean)
         Try
@@ -22,15 +22,9 @@ Partial Class usConEditProv
     'No lo modifique con el editor de código.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        SuspendLayout()
-        ' 
-        ' usConEditProv
-        ' 
-        AutoScaleDimensions = New SizeF(7F, 15F)
-        AutoScaleMode = AutoScaleMode.Font
-        Name = "usConEditProv"
-        Size = New Size(171, 351)
-        ResumeLayout(False)
+        components = New System.ComponentModel.Container
+        Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
+        Me.ClientSize = New System.Drawing.Size(800, 450)
+        Me.Text = "formProveedor"
     End Sub
-
 End Class
