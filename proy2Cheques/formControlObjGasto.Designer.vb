@@ -23,11 +23,12 @@ Partial Class formControlObjGasto
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         DataGridView1 = New DataGridView()
-        MaterialButton1 = New MaterialSkin.Controls.MaterialButton()
-        MaterialLabel1 = New MaterialSkin.Controls.MaterialLabel()
         columnCodigo = New DataGridViewTextBoxColumn()
         columnDetalle = New DataGridViewTextBoxColumn()
         columnObjeto = New DataGridViewTextBoxColumn()
+        MaterialButton1 = New MaterialSkin.Controls.MaterialButton()
+        MaterialLabel1 = New MaterialSkin.Controls.MaterialLabel()
+        columnEliminar = New DataGridViewButtonColumn()
         CType(DataGridView1, ComponentModel.ISupportInitialize).BeginInit()
         SuspendLayout()
         ' 
@@ -36,12 +37,33 @@ Partial Class formControlObjGasto
         DataGridView1.AllowUserToAddRows = False
         DataGridView1.AllowUserToDeleteRows = False
         DataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        DataGridView1.Columns.AddRange(New DataGridViewColumn() {columnCodigo, columnDetalle, columnObjeto})
+        DataGridView1.Columns.AddRange(New DataGridViewColumn() {columnCodigo, columnDetalle, columnObjeto, columnEliminar})
         DataGridView1.Location = New Point(30, 126)
         DataGridView1.Name = "DataGridView1"
         DataGridView1.ReadOnly = True
         DataGridView1.Size = New Size(737, 299)
         DataGridView1.TabIndex = 0
+        ' 
+        ' columnCodigo
+        ' 
+        columnCodigo.Frozen = True
+        columnCodigo.HeaderText = "ID Objeto Gasto"
+        columnCodigo.Name = "columnCodigo"
+        columnCodigo.ReadOnly = True
+        ' 
+        ' columnDetalle
+        ' 
+        columnDetalle.Frozen = True
+        columnDetalle.HeaderText = "Detalle"
+        columnDetalle.Name = "columnDetalle"
+        columnDetalle.ReadOnly = True
+        ' 
+        ' columnObjeto
+        ' 
+        columnObjeto.Frozen = True
+        columnObjeto.HeaderText = "Objeto/Cantidad"
+        columnObjeto.Name = "columnObjeto"
+        columnObjeto.ReadOnly = True
         ' 
         ' MaterialButton1
         ' 
@@ -74,26 +96,12 @@ Partial Class formControlObjGasto
         MaterialLabel1.TabIndex = 2
         MaterialLabel1.Text = "Lista de Objetos"
         ' 
-        ' columnCodigo
+        ' columnEliminar
         ' 
-        columnCodigo.Frozen = True
-        columnCodigo.HeaderText = "ID Objeto Gasto"
-        columnCodigo.Name = "columnCodigo"
-        columnCodigo.ReadOnly = True
-        ' 
-        ' columnDetalle
-        ' 
-        columnDetalle.Frozen = True
-        columnDetalle.HeaderText = "Detalle"
-        columnDetalle.Name = "columnDetalle"
-        columnDetalle.ReadOnly = True
-        ' 
-        ' columnObjeto
-        ' 
-        columnObjeto.Frozen = True
-        columnObjeto.HeaderText = "Objeto/Cantidad"
-        columnObjeto.Name = "columnObjeto"
-        columnObjeto.ReadOnly = True
+        columnEliminar.Frozen = True
+        columnEliminar.HeaderText = "Eliminar"
+        columnEliminar.Name = "columnEliminar"
+        columnEliminar.ReadOnly = True
         ' 
         ' formControlObjGasto
         ' 
@@ -116,4 +124,5 @@ Partial Class formControlObjGasto
     Friend WithEvents columnCodigo As DataGridViewTextBoxColumn
     Friend WithEvents columnDetalle As DataGridViewTextBoxColumn
     Friend WithEvents columnObjeto As DataGridViewTextBoxColumn
+    Friend WithEvents columnEliminar As DataGridViewButtonColumn
 End Class

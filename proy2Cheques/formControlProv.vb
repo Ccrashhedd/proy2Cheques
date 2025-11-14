@@ -42,6 +42,7 @@
                 Dim ruc = If(IsDBNull(r("ruc")), "", r("ruc").ToString())
                 Dim direccion = If(IsDBNull(r("direccion")), "", r("direccion").ToString())
 
+                ' Asegurar los textos de los botones: Editar y Eliminar
                 DataGridView1.Rows.Add(codigo, nombre, ruc, direccion, "Editar", "Eliminar")
             Next
         Catch ex As Exception
@@ -65,8 +66,9 @@
             ElseIf colName = "columnEliminar" Then
                 Dim resp = MessageBox.Show($"¿Eliminar proveedor {codigo}?", "Confirmar", MessageBoxButtons.YesNo, MessageBoxIcon.Question)
                 If resp = DialogResult.Yes Then
-                    ' Implementar eliminación en moduloProveedor si se desea
-                    MessageBox.Show("Función de eliminar no implementada aún.")
+                    Dim resultado = moduloProveedor.eliminarProveedor(codigo)
+                    MessageBox.Show(resultado)
+                    CargarProveedores()
                 End If
             End If
         Catch ex As Exception

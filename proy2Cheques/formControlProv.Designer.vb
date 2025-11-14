@@ -40,7 +40,7 @@ Partial Class formControlProv
         DataGridView1.AllowUserToDeleteRows = False
         DataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.TopLeft
         DataGridViewCellStyle1.BackColor = SystemColors.Control
-        DataGridViewCellStyle1.Font = New Font("Segoe UI", 9F)
+        DataGridViewCellStyle1.Font = New Font("Segoe UI", 9.0F)
         DataGridViewCellStyle1.ForeColor = SystemColors.WindowText
         DataGridViewCellStyle1.SelectionBackColor = SystemColors.Highlight
         DataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText
@@ -77,7 +77,7 @@ Partial Class formControlProv
         ' 
         MaterialLabel1.AutoSize = True
         MaterialLabel1.Depth = 0
-        MaterialLabel1.Font = New Font("Roboto", 24F, FontStyle.Bold, GraphicsUnit.Pixel)
+        MaterialLabel1.Font = New Font("Roboto", 24.0F, FontStyle.Bold, GraphicsUnit.Pixel)
         MaterialLabel1.FontType = MaterialSkin.MaterialSkinManager.fontType.H5
         MaterialLabel1.Location = New Point(23, 80)
         MaterialLabel1.MouseState = MaterialSkin.MouseState.HOVER
@@ -120,10 +120,12 @@ Partial Class formControlProv
         columnEliminar.HeaderText = "Eliminar"
         columnEliminar.Name = "columnEliminar"
         columnEliminar.ReadOnly = True
+        columnEliminar.Text = "Eliminar"
+        columnEliminar.UseColumnTextForButtonValue = True
         ' 
         ' formControlProv
         ' 
-        AutoScaleDimensions = New SizeF(96F, 96F)
+        AutoScaleDimensions = New SizeF(96.0F, 96.0F)
         AutoScaleMode = AutoScaleMode.Dpi
         ClientSize = New Size(801, 528)
         Controls.Add(MaterialLabel1)

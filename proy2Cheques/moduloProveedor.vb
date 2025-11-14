@@ -57,6 +57,35 @@ Module moduloProveedor
 
     End Function
 
+    Public Function eliminarProveedor(ByVal codigo As String) As String
+        Try
+            Dim deleteQuery As String =
+                "DELETE FROM proveedores WHERE codigo=@codigo"
+            miconexion.Open()
+            cm = New MySqlCommand(deleteQuery, miconexion)
+            cm.Parameters.AddWithValue("@codigo", codigo)
+            cm.ExecuteNonQuery()
+            miconexion.Close()
+            Return "Proveedor eliminado correctamente."
+        Catch ex As MySqlException
+            ' 1451 = ER_ROW_IS_REFERENCED_2 (cannot delete/update parent row: a foreign key constraint fails)
+            Try
+                If miconexion.State <> ConnectionState.Closed Then miconexion.Close()
+            Catch
+            End Try
+            If ex.Number = 1451 Then
+                Return "No se puede eliminar, proveedor referenciado"
+            End If
+            Return "Error al eliminar proveedor: " & ex.Message
+        Catch ex As Exception
+            Try
+                If miconexion.State <> ConnectionState.Closed Then miconexion.Close()
+            Catch
+            End Try
+            Return "Error al eliminar proveedor: " & ex.Message
+        End Try
+    End Function
+
     ' Devuelve DataTable con proveedores
     Public Function ObtenerProveedores() As DataTable
         Dim dt As New DataTable()

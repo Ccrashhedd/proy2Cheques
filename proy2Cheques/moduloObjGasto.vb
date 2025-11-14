@@ -63,4 +63,18 @@ Module moduloObjGasto
         End Try
     End Function
 
+    ' Devuelve DataTable con objetos de gasto ordenados por detalle
+    Public Function ObtenerObjGastos() As DataTable
+        Dim dt As New DataTable()
+        Try
+            Dim sql As String = "SELECT codigo, detalle, objeto FROM objeto_gasto ORDER BY detalle ASC;"
+            Using da As New MySqlDataAdapter(sql, miconexion)
+                da.Fill(dt)
+            End Using
+        Catch ex As Exception
+            Debug.WriteLine("Error en ObtenerObjGastos: " & ex.Message)
+        End Try
+        Return dt
+    End Function
+
 End Module
