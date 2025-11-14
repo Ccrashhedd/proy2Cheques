@@ -42,118 +42,125 @@ Partial Class formCheque
         ' Label1
         ' 
         Label1.AutoSize = True
-        Label1.Location = New Point(19, 93)
+        Label1.Location = New Point(22, 124)
         Label1.Name = "Label1"
-        Label1.Size = New Size(70, 15)
+        Label1.Size = New Size(86, 20)
         Label1.TabIndex = 0
         Label1.Text = "No. Cheque"
         ' 
         ' comboBoxProveedor
         ' 
         comboBoxProveedor.FormattingEnabled = True
-        comboBoxProveedor.Location = New Point(73, 204)
+        comboBoxProveedor.Location = New Point(104, 272)
+        comboBoxProveedor.Margin = New Padding(3, 4, 3, 4)
         comboBoxProveedor.Name = "comboBoxProveedor"
-        comboBoxProveedor.Size = New Size(170, 23)
+        comboBoxProveedor.Size = New Size(236, 28)
         comboBoxProveedor.TabIndex = 1
         ' 
         ' comboBoxObjGas
         ' 
         comboBoxObjGas.FormattingEnabled = True
-        comboBoxObjGas.Location = New Point(356, 205)
+        comboBoxObjGas.Location = New Point(460, 272)
+        comboBoxObjGas.Margin = New Padding(3, 4, 3, 4)
         comboBoxObjGas.Name = "comboBoxObjGas"
-        comboBoxObjGas.Size = New Size(163, 23)
+        comboBoxObjGas.Size = New Size(280, 28)
         comboBoxObjGas.TabIndex = 2
         ' 
         ' TextBox1
         ' 
-        TextBox1.Location = New Point(110, 87)
+        TextBox1.Location = New Point(126, 116)
+        TextBox1.Margin = New Padding(3, 4, 3, 4)
         TextBox1.Name = "TextBox1"
-        TextBox1.Size = New Size(100, 23)
+        TextBox1.Size = New Size(114, 27)
         TextBox1.TabIndex = 3
         ' 
         ' RichTextBox1
         ' 
         RichTextBox1.Enabled = False
-        RichTextBox1.Location = New Point(235, 142)
+        RichTextBox1.Location = New Point(346, 189)
+        RichTextBox1.Margin = New Padding(3, 4, 3, 4)
         RichTextBox1.Name = "RichTextBox1"
-        RichTextBox1.Size = New Size(286, 39)
+        RichTextBox1.Size = New Size(326, 51)
         RichTextBox1.TabIndex = 4
         RichTextBox1.Text = ""
         ' 
         ' TextBox2
         ' 
-        TextBox2.Location = New Point(110, 151)
+        TextBox2.Location = New Point(126, 202)
+        TextBox2.Margin = New Padding(3, 4, 3, 4)
         TextBox2.Name = "TextBox2"
-        TextBox2.Size = New Size(100, 23)
+        TextBox2.Size = New Size(114, 27)
         TextBox2.TabIndex = 5
         ' 
         ' DateTimePicker1
         ' 
         DateTimePicker1.Checked = False
-        DateTimePicker1.Location = New Point(287, 87)
+        DateTimePicker1.Location = New Point(398, 117)
+        DateTimePicker1.Margin = New Padding(3, 4, 3, 4)
         DateTimePicker1.Name = "DateTimePicker1"
-        DateTimePicker1.Size = New Size(232, 23)
+        DateTimePicker1.Size = New Size(274, 27)
         DateTimePicker1.TabIndex = 6
         ' 
         ' Label2
         ' 
         Label2.AutoSize = True
-        Label2.Location = New Point(243, 91)
+        Label2.Location = New Point(345, 119)
         Label2.Name = "Label2"
-        Label2.Size = New Size(38, 15)
+        Label2.Size = New Size(47, 20)
         Label2.TabIndex = 7
         Label2.Text = "Fecha"
         ' 
         ' Label3
         ' 
         Label3.AutoSize = True
-        Label3.Location = New Point(48, 154)
+        Label3.Location = New Point(55, 205)
         Label3.Name = "Label3"
-        Label3.Size = New Size(43, 15)
+        Label3.Size = New Size(53, 20)
         Label3.TabIndex = 8
         Label3.Text = "Monto"
         ' 
         ' Label4
         ' 
         Label4.AutoSize = True
-        Label4.Location = New Point(235, 124)
+        Label4.Location = New Point(346, 165)
         Label4.Name = "Label4"
-        Label4.Size = New Size(90, 15)
+        Label4.Size = New Size(113, 20)
         Label4.TabIndex = 9
         Label4.Text = "Monto en letras"
         ' 
         ' Label5
         ' 
         Label5.AutoSize = True
-        Label5.Location = New Point(6, 207)
+        Label5.Location = New Point(21, 275)
         Label5.Name = "Label5"
-        Label5.Size = New Size(61, 15)
+        Label5.Size = New Size(77, 20)
         Label5.TabIndex = 10
         Label5.Text = "Proveedor"
         ' 
         ' Label6
         ' 
         Label6.AutoSize = True
-        Label6.Location = New Point(258, 208)
+        Label6.Location = New Point(341, 275)
         Label6.Name = "Label6"
-        Label6.Size = New Size(92, 15)
+        Label6.Size = New Size(118, 20)
         Label6.TabIndex = 11
         Label6.Text = "Objeto de Gasto"
         ' 
         ' Label7
         ' 
         Label7.AutoSize = True
-        Label7.Location = New Point(61, 262)
+        Label7.Location = New Point(70, 349)
         Label7.Name = "Label7"
-        Label7.Size = New Size(43, 15)
+        Label7.Size = New Size(57, 20)
         Label7.TabIndex = 12
         Label7.Text = "Detalle"
         ' 
         ' RichTextBox2
         ' 
-        RichTextBox2.Location = New Point(110, 262)
+        RichTextBox2.Location = New Point(126, 349)
+        RichTextBox2.Margin = New Padding(3, 4, 3, 4)
         RichTextBox2.Name = "RichTextBox2"
-        RichTextBox2.Size = New Size(355, 67)
+        RichTextBox2.Size = New Size(405, 88)
         RichTextBox2.TabIndex = 13
         RichTextBox2.Text = ""
         ' 
@@ -164,8 +171,8 @@ Partial Class formCheque
         MaterialButton1.Depth = 0
         MaterialButton1.HighEmphasis = True
         MaterialButton1.Icon = Nothing
-        MaterialButton1.Location = New Point(184, 348)
-        MaterialButton1.Margin = New Padding(4, 6, 4, 6)
+        MaterialButton1.Location = New Point(304, 462)
+        MaterialButton1.Margin = New Padding(5, 8, 5, 8)
         MaterialButton1.MouseState = MaterialSkin.MouseState.HOVER
         MaterialButton1.Name = "MaterialButton1"
         MaterialButton1.NoAccentTextColor = Color.Empty
@@ -178,9 +185,9 @@ Partial Class formCheque
         ' 
         ' formCheque
         ' 
-        AutoScaleDimensions = New SizeF(7F, 15F)
+        AutoScaleDimensions = New SizeF(8F, 20F)
         AutoScaleMode = AutoScaleMode.Font
-        ClientSize = New Size(537, 409)
+        ClientSize = New Size(768, 545)
         Controls.Add(MaterialButton1)
         Controls.Add(RichTextBox2)
         Controls.Add(Label7)
@@ -196,7 +203,9 @@ Partial Class formCheque
         Controls.Add(comboBoxObjGas)
         Controls.Add(comboBoxProveedor)
         Controls.Add(Label1)
+        Margin = New Padding(3, 4, 3, 4)
         Name = "formCheque"
+        Padding = New Padding(3, 85, 3, 4)
         Text = "Agregar Cheque"
         ResumeLayout(False)
         PerformLayout()
