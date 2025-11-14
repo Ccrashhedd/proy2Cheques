@@ -1,8 +1,12 @@
-﻿Public Class Form1
+﻿Imports System.Text.RegularExpressions
+Imports System.Globalization
+
+Public Class Form1
 
     Private sesionControl As controlSesionUser
     Private formChq As formCheque
     Private formProvControl As formControlProv
+    Private formObjControl As formControlObjGasto
 
     Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         ' Agregar el userControl que es la parte de iniciar sesion
@@ -28,8 +32,10 @@
         ' Cargar cheques inicialmente
         Try
             CargarChequesEnGrid()
+            CargarDepositosEnGrid()
+            CargarTiposDeposito()
         Catch ex As Exception
-            Debug.WriteLine("Error al cargar cheques iniciales: " & ex.Message)
+            Debug.WriteLine("Error al cargar datos iniciales: " & ex.Message)
         End Try
     End Sub
 
@@ -241,6 +247,21 @@
         End Try
     End Sub
 
+    Private Sub Button3_Click(sender As Object, e As EventArgs) Handles Button3.Click
+        Try
+            If formObjControl Is Nothing OrElse formObjControl.IsDisposed Then
+                formObjControl = New formControlObjGasto()
+                AddHandler formObjControl.FormClosed, Sub(s, args) formObjControl = Nothing
+                AddHandler formObjControl.FormClosed, Sub(s, args) CargarChequesEnGrid()
+            End If
+            formObjControl.Show()
+            formObjControl.BringToFront()
+            formObjControl.Focus()
+        Catch ex As Exception
+            Debug.WriteLine("Error al abrir formControlObjGasto: " & ex.Message)
+        End Try
+    End Sub
+
     ' Carga los cheques desde la base de datos y los muestra en DataGridView1
     Public Sub CargarChequesEnGrid()
         Try
@@ -309,6 +330,79 @@
         End Try
     End Sub
 
+    ' Cargar depósitos en DataGridView2 desde moduloDeposito
+    Public Sub CargarDepositosEnGrid()
+        Try
+            Dim dt As DataTable = moduloDeposito.ObtenerDepositos()
+            If dt Is Nothing Then Return
+
+            DataGridView2.Rows.Clear()
+
+            ' Determinar nombres de columnas devueltas
+            Dim colId As String = If(dt.Columns.Contains("idDeposito"), "idDeposito", If(dt.Columns.Count > 0, dt.Columns(0).ColumnName, String.Empty))
+            Dim colTipoNombre As String = If(dt.Columns.Contains("tipoNombre"), "tipoNombre", If(dt.Columns.Contains("nombre"), "nombre", If(dt.Columns.Count > 2, dt.Columns(2).ColumnName, String.Empty)))
+            Dim colMonto As String = If(dt.Columns.Contains("monto"), "monto", If(dt.Columns.Count > 3, dt.Columns(3).ColumnName, String.Empty))
+            Dim colFecha As String = If(dt.Columns.Contains("fechaDeposito"), "fechaDeposito", If(dt.Columns.Count > 4, dt.Columns(4).ColumnName, If(dt.Columns.Count > 2, dt.Columns(dt.Columns.Count - 1).ColumnName, String.Empty)))
+
+            For Each r As DataRow In dt.Rows
+                Dim idDep As String = String.Empty
+                Dim tipoNombre As String = String.Empty
+                Dim monto As Decimal = 0D
+                Dim fecha As String = String.Empty
+
+                If Not String.IsNullOrEmpty(colId) AndAlso dt.Columns.Contains(colId) AndAlso Not IsDBNull(r(colId)) Then
+                    idDep = r(colId).ToString()
+                ElseIf dt.Columns.Count > 0 Then
+                    idDep = r(0).ToString()
+                End If
+
+                If Not String.IsNullOrEmpty(colTipoNombre) AndAlso dt.Columns.Contains(colTipoNombre) AndAlso Not IsDBNull(r(colTipoNombre)) Then
+                    tipoNombre = r(colTipoNombre).ToString()
+                ElseIf dt.Columns.Count > 1 Then
+                    tipoNombre = r(1).ToString()
+                End If
+
+                If Not String.IsNullOrEmpty(colMonto) AndAlso dt.Columns.Contains(colMonto) AndAlso Not IsDBNull(r(colMonto)) Then
+                    monto = Convert.ToDecimal(r(colMonto))
+                ElseIf dt.Columns.Count > 2 Then
+                    monto = Convert.ToDecimal(r(dt.Columns.Count - 2))
+                End If
+
+                If Not String.IsNullOrEmpty(colFecha) AndAlso dt.Columns.Contains(colFecha) AndAlso Not IsDBNull(r(colFecha)) Then
+                    fecha = Convert.ToDateTime(r(colFecha)).ToString("yyyy-MM-dd")
+                ElseIf dt.Columns.Count > 0 Then
+                    fecha = Convert.ToDateTime(r(dt.Columns.Count - 1)).ToString("yyyy-MM-dd")
+                End If
+
+                DataGridView2.Rows.Add(idDep, tipoNombre, monto.ToString("N2"), fecha)
+            Next
+        Catch ex As Exception
+            Debug.WriteLine("Error al cargar depósitos: " & ex.Message)
+        End Try
+    End Sub
+
+    ' Cargar tipos de deposito en ComboBox1
+    Public Sub CargarTiposDeposito()
+        Try
+            Dim dt As DataTable = moduloDeposito.ObtenerTiposDeposito()
+            If dt Is Nothing Then Return
+
+            If ComboBox1 Is Nothing Then Return
+
+            If dt.Rows.Count > 0 Then
+                ComboBox1.DataSource = dt
+                ComboBox1.DisplayMember = "nombre"
+                ComboBox1.ValueMember = "idTipoDepo"
+                ComboBox1.SelectedIndex = -1
+            Else
+                ComboBox1.DataSource = Nothing
+                ComboBox1.Items.Clear()
+            End If
+        Catch ex As Exception
+            Debug.WriteLine("Error al cargar tipos de deposito: " & ex.Message)
+        End Try
+    End Sub
+
     ' Manejar clicks en el grid (anular cheque)
     Private Sub DataGridView1_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles DataGridView1.CellContentClick
         Try
@@ -338,6 +432,72 @@
             End If
         Catch ex As Exception
             Debug.WriteLine("Error en DataGridView1_CellContentClick: " & ex.Message)
+        End Try
+    End Sub
+
+    Private Sub MaterialButton1_Click(sender As Object, e As EventArgs) Handles MaterialButton1.Click
+        Try
+            ' Validar tipo seleccionado
+            If ComboBox1 Is Nothing OrElse ComboBox1.SelectedValue Is Nothing Then
+                MessageBox.Show("Seleccione un tipo de depósito.", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+                Return
+            End If
+
+            Dim tipoId As Integer = 0
+            If Not Integer.TryParse(ComboBox1.SelectedValue.ToString(), tipoId) Then
+                MessageBox.Show("Tipo de depósito inválido.", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+                Return
+            End If
+
+            ' Validar monto
+            Dim montoText As String = TextBox2.Text.Trim()
+            If String.IsNullOrEmpty(montoText) Then
+                MessageBox.Show("Ingrese un monto.", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+                TextBox2.Focus()
+                Return
+            End If
+
+            ' Normalizar y limpiar
+            Dim cleaned As String = montoText.Replace(" ", "").Replace("$", "").Replace(",", ".")
+            cleaned = Regex.Replace(cleaned, "[^0-9\.]", "")
+            ' Manejar múltiples puntos: conservar el primero
+            Dim firstDot = cleaned.IndexOf(".")
+            If firstDot >= 0 Then
+                Dim before = cleaned.Substring(0, firstDot + 1)
+                Dim after = cleaned.Substring(firstDot + 1)
+                after = Regex.Replace(after, "\.", "")
+                cleaned = before & after
+            End If
+
+            Dim montoVal As Double = 0
+            Dim success As Boolean = Double.TryParse(cleaned, NumberStyles.Number, CultureInfo.InvariantCulture, montoVal)
+            If Not success Then
+                MessageBox.Show("Monto inválido.", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+                Return
+            End If
+
+            ' Fecha
+            Dim fechaDep As Date = DateTimePicker1.Value.Date
+
+            ' Generar id para el depósito (GUID)
+            Dim idDepo As String = Guid.NewGuid().ToString()
+
+            ' Llamar al módulo para agregar
+            Dim resultado As String = moduloDeposito.agregarDeposito(idDepo, tipoId, fechaDep, montoVal)
+            MessageBox.Show(resultado)
+
+            If resultado IsNot Nothing AndAlso resultado.ToLower().Contains("correctamente") Then
+                ' Limpiar campos
+                TextBox2.Clear()
+                RichTextBox1.Clear()
+                ComboBox1.SelectedIndex = -1
+                DateTimePicker1.Value = DateTime.Now
+                ' Refrescar grid
+                CargarDepositosEnGrid()
+            End If
+
+        Catch ex As Exception
+            MessageBox.Show("Error al intentar agregar depósito: " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
     End Sub
 End Class
