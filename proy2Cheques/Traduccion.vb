@@ -2,8 +2,14 @@
     ' Función principal para convertir un número en palabras (dólares y centavos)
     Public Function ConvertirAMontoEnPalabras(monto As Decimal) As String
         ' Separar la parte de los dólares y los centavos
-        Dim dolares As Integer = Math.Floor(monto) ' Parte entera (dólares)
-        Dim centavos As Integer = (monto - dolares) * 100 ' Parte decimal (centavos)
+        Dim dolares As Integer = CInt(Math.Floor(monto)) ' Parte entera (dólares)
+        Dim centavos As Integer = CInt(Math.Round((monto - Math.Floor(monto)) * 100)) ' Parte decimal (centavos), redondeada
+
+        ' Ajustar si el redondeo lleva a 100 centavos
+        If centavos = 100 Then
+            dolares += 1
+            centavos = 0
+        End If
 
         ' Convertir cada parte a palabras
         Dim parteDolares As String = ConvertirANumerosEnPalabras(dolares)

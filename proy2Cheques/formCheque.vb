@@ -1,5 +1,6 @@
 ﻿Imports System.Data.SqlClient
 Imports MySqlConnector
+Imports System.Globalization
 
 Public Class formCheque
 
@@ -68,6 +69,9 @@ Public Class formCheque
         Catch ex As Exception
             MessageBox.Show("Error al cargar objetos de gasto: " & ex.Message)
         End Try
+
+        ' Inicializar monto en letras vacío
+        RichTextBox1.Text = String.Empty
     End Sub
 
     Private Sub DateTimePicker1_ValueChanged(sender As Object, e As EventArgs) Handles DateTimePicker1.ValueChanged
@@ -89,5 +93,38 @@ Public Class formCheque
         End If
         Return DateTimePicker1.Value.Date
     End Function
+
+    ' Actualizar el texto de "Monto en letras" cuando cambia el TextBox2
+    Private Sub TextBox2_TextChanged(sender As Object, e As EventArgs) Handles TextBox2.TextChanged
+        Dim texto As String = TextBox2.Text.Trim()
+        If String.IsNullOrEmpty(texto) Then
+            RichTextBox1.Text = String.Empty
+            Return
+        End If
+
+        ' Intentar parsear con la cultura actual
+        Dim monto As Decimal = 0D
+        Dim success As Boolean = Decimal.TryParse(texto, NumberStyles.Number Or NumberStyles.AllowCurrencySymbol, CultureInfo.CurrentCulture, monto)
+
+        ' Si falla, intentar con invariant (aceptar punto como separador) después de limpiar espacios y símbolos
+        If Not success Then
+            Dim cleaned = texto.Replace(" ", "").Replace("$", "")
+            ' permitir tanto coma como punto: normalizar a punto para invariant
+            cleaned = cleaned.Replace(",", ".")
+            success = Decimal.TryParse(cleaned, NumberStyles.Number, CultureInfo.InvariantCulture, monto)
+        End If
+
+        If success Then
+            Try
+                RichTextBox1.Text = Traduccion.ConvertirAMontoEnPalabras(monto)
+            Catch ex As Exception
+                RichTextBox1.Text = String.Empty
+                Debug.WriteLine("Error al convertir monto a palabras: " & ex.Message)
+            End Try
+        Else
+            ' No mostrar error intrusivo; solo limpiar
+            RichTextBox1.Text = String.Empty
+        End If
+    End Sub
 
 End Class
