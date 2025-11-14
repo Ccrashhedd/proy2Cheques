@@ -8,7 +8,6 @@ Module moduloObjGasto
     Dim dsl As DataSet
     Dim conexion As String =
         "Server=localhost;Database=proycheque;Uid=root;Pwd=;"
-    Dim miconexion As New MySqlConnection(conexion)
 
     Public Function agregarObjGas(ByVal codigo As String,
                                   ByVal detalle As String,
@@ -16,13 +15,15 @@ Module moduloObjGasto
         Try
             Dim consulta As String = "INSERT INTO objeto_gasto(codigo, detalle, objeto) " &
                                      "VALUES (@codigo, @detalle, @objeto)"
-            miconexion.Open()
-            cm = New MySqlCommand(consulta, miconexion)
-            cm.Parameters.AddWithValue("@codigo", codigo)
-            cm.Parameters.AddWithValue("@detalle", detalle)
-            cm.Parameters.AddWithValue("@objeto", objeto)
-            cm.ExecuteNonQuery()
-            miconexion.Close()
+            Using conn As New MySqlConnection(conexion)
+                conn.Open()
+                Using cmd As New MySqlCommand(consulta, conn)
+                    cmd.Parameters.AddWithValue("@codigo", codigo)
+                    cmd.Parameters.AddWithValue("@detalle", detalle)
+                    cmd.Parameters.AddWithValue("@objeto", objeto)
+                    cmd.ExecuteNonQuery()
+                End Using
+            End Using
             Return "Objeto de gasto agregado correctamente."
         Catch ex As Exception
             Return "Error al agregar objeto: " & ex.Message
@@ -36,13 +37,15 @@ Module moduloObjGasto
         Try
             Dim updateQuery As String = "UPDATE objeto_gasto SET detalle=@detalle, objeto=@objeto " &
                                         "WHERE codigo=@codigo"
-            miconexion.Open()
-            cm = New MySqlCommand(updateQuery, miconexion)
-            cm.Parameters.AddWithValue("@codigo", codigo)
-            cm.Parameters.AddWithValue("@detalle", detalle)
-            cm.Parameters.AddWithValue("@objeto", objeto)
-            cm.ExecuteNonQuery()
-            miconexion.Close()
+            Using conn As New MySqlConnection(conexion)
+                conn.Open()
+                Using cmd As New MySqlCommand(updateQuery, conn)
+                    cmd.Parameters.AddWithValue("@codigo", codigo)
+                    cmd.Parameters.AddWithValue("@detalle", detalle)
+                    cmd.Parameters.AddWithValue("@objeto", objeto)
+                    cmd.ExecuteNonQuery()
+                End Using
+            End Using
             Return "Objeto de gasto editado correctamente."
         Catch ex As Exception
             Return "Error al editar objeto: " & ex.Message
@@ -52,11 +55,13 @@ Module moduloObjGasto
     Public Function eliminarObjGas(ByVal codigo As String) As String
         Try
             Dim deleteQuery As String = "DELETE FROM objeto_gasto WHERE codigo=@codigo"
-            miconexion.Open()
-            cm = New MySqlCommand(deleteQuery, miconexion)
-            cm.Parameters.AddWithValue("@codigo", codigo)
-            cm.ExecuteNonQuery()
-            miconexion.Close()
+            Using conn As New MySqlConnection(conexion)
+                conn.Open()
+                Using cmd As New MySqlCommand(deleteQuery, conn)
+                    cmd.Parameters.AddWithValue("@codigo", codigo)
+                    cmd.ExecuteNonQuery()
+                End Using
+            End Using
             Return "Objeto de gasto eliminado correctamente."
         Catch ex As Exception
             Return "Error al eliminar objeto: " & ex.Message
@@ -68,8 +73,10 @@ Module moduloObjGasto
         Dim dt As New DataTable()
         Try
             Dim sql As String = "SELECT codigo, detalle, objeto FROM objeto_gasto ORDER BY detalle ASC;"
-            Using da As New MySqlDataAdapter(sql, miconexion)
-                da.Fill(dt)
+            Using conn As New MySqlConnection(conexion)
+                Using da As New MySqlDataAdapter(sql, conn)
+                    da.Fill(dt)
+                End Using
             End Using
         Catch ex As Exception
             Debug.WriteLine("Error en ObtenerObjGastos: " & ex.Message)

@@ -7,6 +7,7 @@ Public Class Form1
     Private formChq As formCheque
     Private formProvControl As formControlProv
     Private formObjControl As formControlObjGasto
+    Private concilControl As userConConcil
 
     Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         ' Agregar el userControl que es la parte de iniciar sesion
@@ -37,6 +38,54 @@ Public Class Form1
         Catch ex As Exception
             Debug.WriteLine("Error al cargar datos iniciales: " & ex.Message)
         End Try
+
+        ' Validaciones en la pestaña Depósitos
+        Try
+            If ComboBox1 IsNot Nothing Then
+                ComboBox1.DropDownStyle = ComboBoxStyle.DropDownList
+            End If
+        Catch ex As Exception
+            Debug.WriteLine("No se pudo fijar DropDownStyle en ComboBox1: " & ex.Message)
+        End Try
+
+        Try
+            If TextBox2 IsNot Nothing Then
+                AddHandler TextBox2.KeyPress, AddressOf TextBox2_DepKeyPress
+                AddHandler TextBox2.TextChanged, AddressOf TextBox2_DepTextChanged
+                ' Asegurar maxlength (5 + 1 + 2 = 8)
+                TextBox2.MaxLength = 8
+            End If
+        Catch ex As Exception
+            Debug.WriteLine("No se pudieron agregar handlers para TextBox2: " & ex.Message)
+        End Try
+
+        ' Inicializar DateTimePicker de depósitos como vacío (igual que en formCheque)
+        Try
+            If DateTimePicker1 IsNot Nothing Then
+                DateTimePicker1.Format = DateTimePickerFormat.Custom
+                DateTimePicker1.CustomFormat = " "
+                AddHandler DateTimePicker1.ValueChanged, AddressOf DateTimePicker_DepValueChanged
+                AddHandler DateTimePicker1.KeyDown, AddressOf DateTimePicker_DepKeyDown
+            End If
+        Catch ex As Exception
+            Debug.WriteLine("No se pudieron agregar handlers para DateTimePicker1: " & ex.Message)
+        End Try
+
+        ' Intentar cargar el UserControl de conciliación en la pestaña Conciliación (TabPage3)
+        Try
+            If TabPage3 IsNot Nothing Then
+                If concilControl Is Nothing OrElse concilControl.IsDisposed Then
+                    concilControl = New userConConcil()
+                    concilControl.Dock = DockStyle.Fill
+                End If
+
+                TabPage3.Controls.Clear()
+                TabPage3.Controls.Add(concilControl)
+                concilControl.BringToFront()
+            End If
+        Catch ex As Exception
+            Debug.WriteLine("Error al cargar control de conciliación: " & ex.Message)
+        End Try
     End Sub
 
     Private Sub OnSesionChanged()
@@ -50,7 +99,7 @@ Public Class Form1
             If Not Me.Visible Then Me.Show()
             EnableTabs(True)
 
-            ' Si hay un formulario de login abierto, esconderlo
+            ' Si hay un formulario de login abierto, escapar
             Dim loginForm = FindLoginFormInstance()
             If loginForm IsNot Nothing Then
                 loginForm.Hide()
@@ -216,6 +265,14 @@ Public Class Form1
                 AddHandler formChq.Deactivate, AddressOf OnFormChqDeactivated
                 ' Cuando se cierre el formulario de cheque, refrescar grid
                 AddHandler formChq.FormClosed, Sub(s, args) CargarChequesEnGrid()
+
+                ' Suscribirse al evento ChequeAgregado para refrescar la grilla inmediatamente
+                AddHandler formChq.ChequeAgregado, Sub(s, args)
+                                                       Try
+                                                           CargarChequesEnGrid()
+                                                       Catch ex As Exception
+                                                       End Try
+                                                   End Sub
             End If
 
             ' Mostrar formulario (modeless) y llevar al frente
@@ -342,6 +399,26 @@ Public Class Form1
                     DataGridView2.Refresh()
                 End If
             End If
+
+            ' Si se selecciona la pestaña de conciliación intentar asegurar que el control esté presente
+            If MaterialTabControl1.TabPages(idx) Is TabPage3 Then
+                Try
+                    If TabPage3 IsNot Nothing Then
+                        If concilControl Is Nothing OrElse concilControl.IsDisposed Then
+                            concilControl = New userConConcil()
+                            concilControl.Dock = DockStyle.Fill
+                        End If
+
+                        If Not TabPage3.Controls.Contains(concilControl) Then
+                            TabPage3.Controls.Clear()
+                            TabPage3.Controls.Add(concilControl)
+                            concilControl.BringToFront()
+                        End If
+                    End If
+                Catch ex As Exception
+                    Debug.WriteLine("Error al asegurar control de conciliación en SelectedIndexChanged: " & ex.Message)
+                End Try
+            End If
         Catch ex As Exception
             Debug.WriteLine("Error en SelectedIndexChanged: " & ex.Message)
         End Try
@@ -441,13 +518,39 @@ Public Class Form1
                     Return
                 End If
 
-                Dim resp = MessageBox.Show($"¿Anular el cheque {idCheque}?", "Confirmar anulación", MessageBoxButtons.YesNo, MessageBoxIcon.Question)
-                If resp = DialogResult.Yes Then
-                    Dim resultado = moduloCheque.anularCheque(idCheque)
-                    MessageBox.Show(resultado)
-                    ' Refrescar grid
-                    CargarChequesEnGrid()
-                End If
+                ' Abrir formulario de anulación en modo modal
+                Try
+                    ' Intentar localizar el tipo 'formAnulacion' en los ensamblados cargados
+                    Dim anulType As Type = Nothing
+                    For Each asm As Reflection.Assembly In AppDomain.CurrentDomain.GetAssemblies()
+                        Try
+                            For Each t As Type In asm.GetTypes()
+                                If t.Name = "formAnulacion" Then
+                                    anulType = t
+                                    Exit For
+                                End If
+                            Next
+                        Catch
+                            ' Ignorar ensamblados que no permitan enumerar tipos
+                        End Try
+                        If anulType IsNot Nothing Then Exit For
+                    Next
+
+                    If anulType Is Nothing Then
+                        MessageBox.Show("El formulario de anulación no está disponible en este momento.", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                    Else
+                        Dim fObj As Form = CType(Activator.CreateInstance(anulType), Form)
+                        ' Si existe un método SetChequeId, invocarlo
+                        Dim mi As Reflection.MethodInfo = fObj.GetType().GetMethod("SetChequeId")
+                        If mi IsNot Nothing Then
+                            mi.Invoke(fObj, New Object() {idCheque})
+                        End If
+
+                        fObj.ShowDialog()
+                    End If
+                Catch ex As Exception
+                    Debug.WriteLine("Error al abrir formAnulacion: " & ex.Message)
+                End Try
             End If
         Catch ex As Exception
             Debug.WriteLine("Error en DataGridView1_CellContentClick: " & ex.Message)
@@ -534,5 +637,102 @@ Public Class Form1
         Catch ex As Exception
             Debug.WriteLine("Error en Form1_Shown: " & ex.Message)
         End Try
+    End Sub
+
+    ' Validaciones para TextBox2 en la pestaña Depositos
+    Private Sub TextBox2_DepKeyPress(sender As Object, e As KeyPressEventArgs)
+        ' Permitir solo números, punto y control keys
+        If Not Char.IsControl(e.KeyChar) AndAlso Not Char.IsDigit(e.KeyChar) AndAlso e.KeyChar <> "."c Then
+            e.Handled = True
+        End If
+
+        ' Permitir solo un punto decimal
+        If e.KeyChar = "."c AndAlso CType(sender, TextBox).Text.IndexOf("."c) > -1 Then
+            e.Handled = True
+        End If
+    End Sub
+
+    Private Sub TextBox2_DepTextChanged(sender As Object, e As EventArgs)
+        Dim textBox = CType(sender, TextBox)
+
+        ' Si el texto no es vacío, formatear como número
+        If Not String.IsNullOrEmpty(textBox.Text) Then
+            Dim cleanedText = Regex.Replace(textBox.Text, "[^0-9\.]", "") ' Limpiar entrada
+            Dim isValidNumber = Double.TryParse(cleanedText, NumberStyles.Any, CultureInfo.InvariantCulture, Nothing)
+
+            If Not isValidNumber Then
+                ' Si no es un número válido, restablecer texto
+                textBox.Text = String.Empty
+                If RichTextBox1 IsNot Nothing Then RichTextBox1.Text = String.Empty
+            Else
+                ' Limitar a 5 dígitos enteros y 2 decimales
+                Dim parts = cleanedText.Split("."c)
+                If parts.Length > 2 OrElse (parts.Length = 2 AndAlso parts(1).Length > 2) Then
+                    textBox.Text = String.Empty
+                    If RichTextBox1 IsNot Nothing Then RichTextBox1.Text = String.Empty
+                Else
+                    ' Truncar enteros a 5
+                    If parts.Length >= 1 AndAlso parts(0).Length > 5 Then
+                        parts(0) = parts(0).Substring(0, 5)
+                    End If
+                    Dim final = If(parts.Length = 1, parts(0), parts(0) & "." & parts(1))
+                    If final <> textBox.Text Then
+                        Dim sel = textBox.SelectionStart
+                        textBox.Text = final
+                        textBox.SelectionStart = Math.Min(textBox.Text.Length, Math.Max(0, sel - (textBox.Text.Length - final.Length)))
+                    End If
+
+                    ' Actualizar RichTextBox con monto en palabras
+                    Try
+                        Dim monto As Decimal = 0D
+                        Dim parsed As Boolean = Decimal.TryParse(final, NumberStyles.Number Or NumberStyles.AllowDecimalPoint, CultureInfo.InvariantCulture, monto)
+                        If Not parsed Then
+                            parsed = Decimal.TryParse(final, NumberStyles.Number Or NumberStyles.AllowDecimalPoint, CultureInfo.CurrentCulture, monto)
+                        End If
+                        If parsed Then
+                            Try
+                                If RichTextBox1 IsNot Nothing Then
+                                    RichTextBox1.Text = Traduccion.ConvertirAMontoEnPalabras(monto)
+                                End If
+                            Catch ex As Exception
+                                If RichTextBox1 IsNot Nothing Then RichTextBox1.Text = String.Empty
+                                Debug.WriteLine("Error al convertir monto a palabras (depósitos): " & ex.Message)
+                            End Try
+                        Else
+                            If RichTextBox1 IsNot Nothing Then RichTextBox1.Text = String.Empty
+                        End If
+                    Catch
+                        If RichTextBox1 IsNot Nothing Then RichTextBox1.Text = String.Empty
+                    End Try
+                End If
+            End If
+        Else
+            If RichTextBox1 IsNot Nothing Then RichTextBox1.Text = String.Empty
+        End If
+    End Sub
+
+    ' DateTimePicker handlers for deposits (match formCheque behavior)
+    Private Sub DateTimePicker_DepValueChanged(sender As Object, e As EventArgs)
+        Try
+            If DateTimePicker1 Is Nothing Then Return
+            DateTimePicker1.CustomFormat = "yyyy-MM-dd"
+        Catch ex As Exception
+            Debug.WriteLine("Error en DateTimePicker_DepValueChanged: " & ex.Message)
+        End Try
+    End Sub
+
+    Private Sub DateTimePicker_DepKeyDown(sender As Object, e As KeyEventArgs)
+        Try
+            If DateTimePicker1 Is Nothing Then Return
+            If e.KeyCode = Keys.Delete OrElse e.KeyCode = Keys.Back Then
+                DateTimePicker1.CustomFormat = " "
+            End If
+        Catch ex As Exception
+            Debug.WriteLine("Error en DateTimePicker_DepKeyDown: " & ex.Message)
+        End Try
+    End Sub
+
+    Private Sub TabPage3_Click(sender As Object, e As EventArgs) Handles TabPage3.Click
+
     End Sub
 End Class

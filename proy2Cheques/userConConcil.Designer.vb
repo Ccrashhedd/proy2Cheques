@@ -44,45 +44,51 @@ Partial Class userConConcil
         ' 
         ' txtSaldoSegunLibros
         ' 
-        txtSaldoSegunLibros.Location = New Point(250, 100)
+        txtSaldoSegunLibros.Location = New Point(219, 117)
+        txtSaldoSegunLibros.Margin = New Padding(3, 2, 3, 2)
         txtSaldoSegunLibros.Name = "txtSaldoSegunLibros"
-        txtSaldoSegunLibros.Size = New Size(250, 27)
+        txtSaldoSegunLibros.Size = New Size(219, 23)
         txtSaldoSegunLibros.TabIndex = 0
         ' 
         ' txtDepositosTransito
         ' 
-        txtDepositosTransito.Location = New Point(250, 150)
+        txtDepositosTransito.Location = New Point(219, 154)
+        txtDepositosTransito.Margin = New Padding(3, 2, 3, 2)
         txtDepositosTransito.Name = "txtDepositosTransito"
-        txtDepositosTransito.Size = New Size(250, 27)
+        txtDepositosTransito.Size = New Size(219, 23)
         txtDepositosTransito.TabIndex = 1
         ' 
         ' txtChequesPendientes
         ' 
-        txtChequesPendientes.Location = New Point(250, 200)
+        txtChequesPendientes.Location = New Point(219, 192)
+        txtChequesPendientes.Margin = New Padding(3, 2, 3, 2)
         txtChequesPendientes.Name = "txtChequesPendientes"
-        txtChequesPendientes.Size = New Size(250, 27)
+        txtChequesPendientes.Size = New Size(219, 23)
         txtChequesPendientes.TabIndex = 2
         ' 
         ' txtSaldoBanco
         ' 
-        txtSaldoBanco.Location = New Point(250, 250)
+        txtSaldoBanco.Location = New Point(219, 230)
+        txtSaldoBanco.Margin = New Padding(3, 2, 3, 2)
         txtSaldoBanco.Name = "txtSaldoBanco"
-        txtSaldoBanco.Size = New Size(250, 27)
+        txtSaldoBanco.Size = New Size(219, 23)
         txtSaldoBanco.TabIndex = 3
         ' 
         ' txtSaldoConciliado
         ' 
         txtSaldoConciliado.Enabled = False
-        txtSaldoConciliado.Location = New Point(250, 300)
+        txtSaldoConciliado.Location = New Point(219, 267)
+        txtSaldoConciliado.Margin = New Padding(3, 2, 3, 2)
         txtSaldoConciliado.Name = "txtSaldoConciliado"
-        txtSaldoConciliado.Size = New Size(250, 27)
+        txtSaldoConciliado.Size = New Size(219, 23)
         txtSaldoConciliado.TabIndex = 4
         ' 
         ' btnGuardar
         ' 
-        btnGuardar.Location = New Point(250, 350)
+        btnGuardar.Location = New Point(219, 304)
+        btnGuardar.Margin = New Padding(3, 2, 3, 2)
         btnGuardar.Name = "btnGuardar"
-        btnGuardar.Size = New Size(250, 30)
+        btnGuardar.Size = New Size(219, 22)
         btnGuardar.TabIndex = 5
         btnGuardar.Text = "Guardar Conciliación"
         btnGuardar.UseVisualStyleBackColor = True
@@ -90,45 +96,45 @@ Partial Class userConConcil
         ' Label1
         ' 
         Label1.AutoSize = True
-        Label1.Location = New Point(50, 100)
+        Label1.Location = New Point(44, 117)
         Label1.Name = "Label1"
-        Label1.Size = New Size(134, 20)
+        Label1.Size = New Size(106, 15)
         Label1.TabIndex = 6
         Label1.Text = "Saldo según libros:"
         ' 
         ' Label2
         ' 
         Label2.AutoSize = True
-        Label2.Location = New Point(50, 150)
+        Label2.Location = New Point(44, 154)
         Label2.Name = "Label2"
-        Label2.Size = New Size(153, 20)
+        Label2.Size = New Size(121, 15)
         Label2.TabIndex = 7
         Label2.Text = "Depósitos en tránsito:"
         ' 
         ' Label3
         ' 
         Label3.AutoSize = True
-        Label3.Location = New Point(50, 200)
+        Label3.Location = New Point(44, 192)
         Label3.Name = "Label3"
-        Label3.Size = New Size(145, 20)
+        Label3.Size = New Size(117, 15)
         Label3.TabIndex = 8
         Label3.Text = "Cheques pendientes:"
         ' 
         ' Label4
         ' 
         Label4.AutoSize = True
-        Label4.Location = New Point(50, 250)
+        Label4.Location = New Point(44, 230)
         Label4.Name = "Label4"
-        Label4.Size = New Size(112, 20)
+        Label4.Size = New Size(88, 15)
         Label4.TabIndex = 9
         Label4.Text = "Saldo bancario:"
         ' 
         ' Label5
         ' 
         Label5.AutoSize = True
-        Label5.Location = New Point(50, 300)
+        Label5.Location = New Point(44, 267)
         Label5.Name = "Label5"
-        Label5.Size = New Size(158, 20)
+        Label5.Size = New Size(124, 15)
         Label5.TabIndex = 10
         Label5.Text = "Saldo conciliado total:"
         ' 
@@ -136,46 +142,47 @@ Partial Class userConConcil
         ' 
         Label6.AutoSize = True
         Label6.ForeColor = Color.Red
-        Label6.Location = New Point(50, 350)
+        Label6.Location = New Point(44, 304)
         Label6.Name = "Label6"
-        Label6.Size = New Size(177, 20)
+        Label6.Size = New Size(138, 15)
         Label6.TabIndex = 11
         Label6.Text = "Valores deben ser iguales"
         ' 
         ' Label7
         ' 
         Label7.AutoSize = True
-        Label7.Location = New Point(50, 400)
+        Label7.Location = New Point(481, 305)
         Label7.Name = "Label7"
-        Label7.Size = New Size(185, 20)
+        Label7.Size = New Size(153, 15)
         Label7.TabIndex = 12
         Label7.Text = "Firma: ______________________"
         ' 
         ' Label8
         ' 
         Label8.AutoSize = True
-        Label8.Font = New Font("Arial", 14.0F, FontStyle.Bold)
-        Label8.Location = New Point(50, 30)
+        Label8.Font = New Font("Arial", 14F, FontStyle.Bold)
+        Label8.Location = New Point(207, 9)
         Label8.Name = "Label8"
-        Label8.Size = New Size(503, 29)
+        Label8.Size = New Size(255, 22)
         Label8.TabIndex = 13
-        Label8.Text = "CONCILIACIÓN BANCARIA - Enero de 2025"
+        Label8.Text = "CONCILIACIÓN BANCARIA "
         ' 
         ' Label9
         ' 
         Label9.AutoSize = True
-        Label9.Location = New Point(50, 60)
+        Label9.Font = New Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
+        Label9.Location = New Point(232, 31)
         Label9.Name = "Label9"
-        Label9.Size = New Size(199, 20)
+        Label9.Size = New Size(206, 21)
         Label9.TabIndex = 14
         Label9.Text = "Empresa XYZ - Estado actual"
         ' 
         ' Label10
         ' 
         Label10.AutoSize = True
-        Label10.Location = New Point(50, 430)
+        Label10.Location = New Point(55, 68)
         Label10.Name = "Label10"
-        Label10.Size = New Size(159, 20)
+        Label10.Size = New Size(127, 15)
         Label10.TabIndex = 15
         Label10.Text = "Seleccionar mes y año:"
         ' 
@@ -184,9 +191,10 @@ Partial Class userConConcil
         MonthComboBox.DropDownStyle = ComboBoxStyle.DropDownList
         MonthComboBox.FormattingEnabled = True
         MonthComboBox.Items.AddRange(New Object() {"Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"})
-        MonthComboBox.Location = New Point(215, 430)
+        MonthComboBox.Location = New Point(332, 65)
+        MonthComboBox.Margin = New Padding(3, 2, 3, 2)
         MonthComboBox.Name = "MonthComboBox"
-        MonthComboBox.Size = New Size(121, 28)
+        MonthComboBox.Size = New Size(106, 23)
         MonthComboBox.TabIndex = 16
         ' 
         ' YearComboBox
@@ -194,14 +202,15 @@ Partial Class userConConcil
         YearComboBox.DropDownStyle = ComboBoxStyle.DropDownList
         YearComboBox.FormattingEnabled = True
         YearComboBox.Items.AddRange(New Object() {"2025", "2024", "2023", "2022"})
-        YearComboBox.Location = New Point(362, 430)
+        YearComboBox.Location = New Point(219, 65)
+        YearComboBox.Margin = New Padding(3, 2, 3, 2)
         YearComboBox.Name = "YearComboBox"
-        YearComboBox.Size = New Size(121, 28)
+        YearComboBox.Size = New Size(106, 23)
         YearComboBox.TabIndex = 17
         ' 
         ' userConConcil
         ' 
-        AutoScaleDimensions = New SizeF(8.0F, 20.0F)
+        AutoScaleDimensions = New SizeF(7F, 15F)
         AutoScaleMode = AutoScaleMode.Font
         Controls.Add(YearComboBox)
         Controls.Add(MonthComboBox)
@@ -221,8 +230,9 @@ Partial Class userConConcil
         Controls.Add(txtChequesPendientes)
         Controls.Add(txtDepositosTransito)
         Controls.Add(txtSaldoSegunLibros)
+        Margin = New Padding(3, 2, 3, 2)
         Name = "userConConcil"
-        Size = New Size(600, 500)
+        Size = New Size(702, 375)
         ResumeLayout(False)
         PerformLayout()
 

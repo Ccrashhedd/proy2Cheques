@@ -122,4 +122,11 @@ Public Class userConConcil
         End Using
     End Sub
 
+    Private Sub Label8_Click(sender As Object, e As EventArgs) Handles Label8.Click
+
+    End Sub
+
+    Private Sub YearComboBox_SelectedIndexChanged(sender As Object, e As EventArgs) Handles YearComboBox.SelectedIndexChanged
+
+    End Sub
 End Class

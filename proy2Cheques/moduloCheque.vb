@@ -60,29 +60,26 @@ Module moduloCheque
     End Function
 
 
-    Public Function anularCheque(ByVal numCheque As String) As String
-        Dim fechaNul As Date = Date.Now
+    Public Function anularCheque(ByVal numCheque As String, ByVal fechaAnulacion As Date) As String
         Try
             Dim consulta As String = "UPDATE cheques SET fechaAnulacion = @fechaNul, estado = @estado WHERE idCheque = @nuCheque"
-            Using cmd As New MySqlCommand(consulta, miconexion)
-                cmd.Parameters.AddWithValue("@fechaNul", fechaNul)
-                ' Guardar estado como entero (0 = Anulado)
-                cmd.Parameters.AddWithValue("@estado", 0)
-                cmd.Parameters.AddWithValue("@nuCheque", numCheque)
-                miconexion.Open()
-                Dim filasAfectadas As Integer = cmd.ExecuteNonQuery()
-                If filasAfectadas > 0 Then
-                    Return "Cheque anulado exitosamente."
-                Else
-                    Return "No se encontró el cheque especificado."
-                End If
+            Using conn As New MySqlConnection(conexion)
+                conn.Open()
+                Using cmd As New MySqlCommand(consulta, conn)
+                    cmd.Parameters.AddWithValue("@fechaNul", fechaAnulacion)
+                    ' Guardar estado como entero (0 = Anulado)
+                    cmd.Parameters.AddWithValue("@estado", 0)
+                    cmd.Parameters.AddWithValue("@nuCheque", numCheque)
+                    Dim filasAfectadas As Integer = cmd.ExecuteNonQuery()
+                    If filasAfectadas > 0 Then
+                        Return "Cheque anulado exitosamente."
+                    Else
+                        Return "No se encontró el cheque especificado."
+                    End If
+                End Using
             End Using
         Catch ex As Exception
             Return "Error al anular el cheque: " & ex.Message
-        Finally
-            If miconexion.State <> ConnectionState.Closed Then
-                miconexion.Close()
-            End If
         End Try
 
     End Function
@@ -98,8 +95,10 @@ Module moduloCheque
                                 "LEFT JOIN objeto_gasto o ON c.idObjGasto = o.codigo " &
                                 "ORDER BY c.estado DESC, p.nombre ASC;"
 
-            Using da As New MySqlDataAdapter(sql, miconexion)
-                da.Fill(dt)
+            Using conn As New MySqlConnection(conexion)
+                Using da As New MySqlDataAdapter(sql, conn)
+                    da.Fill(dt)
+                End Using
             End Using
         Catch ex As Exception
             Debug.WriteLine("Error en ObtenerCheques: " & ex.Message)

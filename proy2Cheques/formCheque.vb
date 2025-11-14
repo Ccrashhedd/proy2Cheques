@@ -5,6 +5,8 @@ Imports System.Text.RegularExpressions
 
 Public Class formCheque
 
+    Public Event ChequeAgregado(sender As Object, e As EventArgs)
+
     Dim cm As MySqlCommand
     Dim pr As MySqlDataAdapter
     Dim dsl As DataSet
@@ -291,6 +293,11 @@ Public Class formCheque
                 If comboBoxProveedor IsNot Nothing Then comboBoxProveedor.SelectedIndex = -1
                 If comboBoxObjGas IsNot Nothing Then comboBoxObjGas.SelectedIndex = -1
                 DateTimePicker1.CustomFormat = " "
+                ' Raise event so parent can refresh
+                Try
+                    RaiseEvent ChequeAgregado(Me, EventArgs.Empty)
+                Catch
+                End Try
             End If
 
         Catch ex As Exception
