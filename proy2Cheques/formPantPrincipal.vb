@@ -43,11 +43,23 @@
         Else
             ' Usuario cerró sesión: deshabilitar tabs y mostrar formulario de login
             EnableTabs(False)
+
+            ' Limpiar datos sensibles antes de ocultar el formulario
+            ClearSensitiveData()
+
             Dim loginForm = FindLoginFormInstance()
             If loginForm Is Nothing Then
                 Dim f As New formInicioSesion()
+                ' asegurar campos limpios en nueva instancia (opcional)
+                f.ClearFields()
                 f.Show()
             Else
+                ' limpiar campos de la instancia reutilizada
+                Try
+                    loginForm.ClearFields()
+                Catch ex As Exception
+                    Debug.WriteLine("No se pudo limpiar campos del login: " & ex.Message)
+                End Try
                 loginForm.Show()
                 loginForm.BringToFront()
             End If
@@ -74,6 +86,74 @@
         Next
         Return Nothing
     End Function
+
+    ' Limpia grids y controles de entrada para evitar mostrar datos previos
+    Private Sub ClearSensitiveData()
+        Try
+            ' Limpiar DataGridView si existen
+            If Me.Controls.ContainsKey("DataGridView1") Then
+                Dim dgv1 = TryCast(Me.Controls("DataGridView1"), DataGridView)
+                If dgv1 IsNot Nothing Then
+                    dgv1.DataSource = Nothing
+                    dgv1.Rows.Clear()
+                End If
+            End If
+
+            If Me.Controls.ContainsKey("DataGridView2") Then
+                Dim dgv2 = TryCast(Me.Controls("DataGridView2"), DataGridView)
+                If dgv2 IsNot Nothing Then
+                    dgv2.DataSource = Nothing
+                    dgv2.Rows.Clear()
+                End If
+            End If
+
+            ' Limpiar controles dentro de las pestañas
+            If MaterialTabControl1 IsNot Nothing Then
+                For Each tab As TabPage In MaterialTabControl1.TabPages
+                    For Each ctrl As Control In tab.Controls
+                        ClearControlRecursive(ctrl)
+                    Next
+                Next
+            End If
+
+            ' Limpiar controles en Panel2 del SplitContainer (u otros contenedores)
+            If SplitContainer1 IsNot Nothing Then
+                For Each ctrl As Control In SplitContainer1.Panel2.Controls
+                    ClearControlRecursive(ctrl)
+                    ' Intentar invocar ClearData si el control lo implementa
+                    Dim mi = ctrl.GetType().GetMethod("ClearData")
+                    If mi IsNot Nothing Then
+                        mi.Invoke(ctrl, Nothing)
+                    End If
+                Next
+            End If
+        Catch ex As Exception
+            ' No bloquear el flujo por errores de limpieza
+            Debug.WriteLine("Error al limpiar datos: " & ex.Message)
+        End Try
+    End Sub
+
+    Private Sub ClearControlRecursive(ctrl As Control)
+        If ctrl Is Nothing Then Return
+
+        ' Limpiar según tipo
+        If TypeOf ctrl Is TextBox Then
+            DirectCast(ctrl, TextBox).Text = String.Empty
+        ElseIf TypeOf ctrl Is ComboBox Then
+            DirectCast(ctrl, ComboBox).SelectedIndex = -1
+        ElseIf TypeOf ctrl Is ListBox Then
+            DirectCast(ctrl, ListBox).Items.Clear()
+        ElseIf TypeOf ctrl Is DataGridView Then
+            Dim dgv = DirectCast(ctrl, DataGridView)
+            dgv.DataSource = Nothing
+            dgv.Rows.Clear()
+        End If
+
+        ' Recursividad para contenedores
+        For Each child As Control In ctrl.Controls
+            ClearControlRecursive(child)
+        Next
+    End Sub
 
     Private Sub TabPage1_Click(sender As Object, e As EventArgs)
 

@@ -21,20 +21,22 @@
         End If
     End Sub
 
-    ' Método público para actualizar la UI del control según el estado de sesión
+    ' Actualiza la UI según el estado de sesión
     Public Sub UpdateUI()
         If moduloSesion.sesionIniciada Then
             MaterialLabel1.Text = moduloSesion.idUsuario
-            MaterialLabel2.Text = If(String.IsNullOrWhiteSpace(moduloSesion.nombreUsuario), "Usuario", moduloSesion.nombreUsuario)
+            MaterialLabel2.Text = If(String.IsNullOrWhiteSpace(moduloSesion.nombreUsuario),
+                                     "Usuario",
+                                     moduloSesion.nombreUsuario)
             MaterialButton1.Text = "Cerrar sesión"
-
         Else
             MaterialLabel1.Text = "--"
             MaterialLabel2.Text = "--"
-            MaterialButton1.Text = "Iniciar Sesion"
+            MaterialButton1.Text = "Iniciar sesión"
         End If
     End Sub
 
+    ' Buscar si ya hay un formulario de login abierto
     Private Function FindLoginFormInstance() As formInicioSesion
         For Each f As Form In Application.OpenForms
             If TypeOf f Is formInicioSesion Then
@@ -44,33 +46,41 @@
         Return Nothing
     End Function
 
+    ' Botón de iniciar / cerrar sesión
     Private Sub MaterialButton1_Click(sender As Object, e As EventArgs) Handles MaterialButton1.Click
-        If moduloSesion.sesionIniciada Then
-            ' Cerrar sesión: usar el método centralizado
-            moduloSesion.logout()
-            ' Cuando se cierra la sesión, el Form principal (que contiene este control)
-            ' debe cerrarse o esconderse. El formulario principal manejará mostrar el login.
-        Else
-            ' Abrir formulario de inicio de sesión (intenta reutilizar instancia si existe)
-            Dim loginForm = FindLoginFormInstance()
-            If loginForm IsNot Nothing Then
-                loginForm.Show()
-                loginForm.BringToFront()
-            Else
-                Dim f As New formInicioSesion()
-                f.Show()
-            End If
-        End If
 
+        If moduloSesion.sesionIniciada Then
+            ' ============ CERRAR SESIÓN ============
+
+            ' Solo cerrar sesión en el módulo; Form1 recibirá el evento y limpiará/ocultará UI
+            moduloSesion.logout()
+
+            ' UpdateUI se hará automáticamente por el evento, pero llamamos para respuesta inmediata
+            UpdateUI()
+
+        Else
+            ' ============ INICIAR SESIÓN ============
+
+            ' Si ya existe un login abierto, lo traemos al frente
+            Dim login = FindLoginFormInstance()
+            If login Is Nothing Then
+                login = New formInicioSesion()
+            End If
+            login.Show()
+            login.BringToFront()
+
+        End If
 
     End Sub
 
-
+    ' Botón "Cerrar" (sale de la aplicación completa)
     Private Sub MaterialButton2_Click(sender As Object, e As EventArgs) Handles MaterialButton2.Click
-        ' Cerrar la aplicación si no hay sesión (confirmar)
-        If MessageBox.Show("¿Desea cerrar la aplicación?", "Confirmar cierre", MessageBoxButtons.YesNo, MessageBoxIcon.Question) = DialogResult.Yes Then
+        If MessageBox.Show("¿Desea cerrar la aplicación?",
+                           "Confirmar cierre",
+                           MessageBoxButtons.YesNo,
+                           MessageBoxIcon.Question) = DialogResult.Yes Then
             Application.Exit()
         End If
-
     End Sub
+
 End Class
