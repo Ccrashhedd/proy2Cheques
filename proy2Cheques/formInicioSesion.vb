@@ -89,7 +89,7 @@ Public Class formInicioSesion
         End Try
     End Sub
 
-    ' Verificar credenciales de usuario
+    ' Verificar credenciales de usuario (case-sensitive comparison in .NET)
     Private Function verificarCredenciales(idUsuario As String, contrasena As String) As String
         Dim cadena As String = "Server=localhost;Database=proycheque;Uid=root;Pwd=;"
 
@@ -97,30 +97,38 @@ Public Class formInicioSesion
             Using conn As New MySqlConnection(cadena)
                 conn.Open()
 
-                Dim sql As String =
-                    "SELECT nombre 
-                     FROM usuario 
-                     WHERE idUsuario = @id AND contrasen = @pass
-                     LIMIT 1"
+                ' Traer nombre, idUsuario y contrasen para el id proporcionado (puede ser case-insensitive en BD)
+                Dim sql As String = "SELECT nombre, idUsuario, contrasen FROM usuario WHERE idUsuario = @id LIMIT 1"
 
                 Using cmd As New MySqlCommand(sql, conn)
                     cmd.Parameters.AddWithValue("@id", idUsuario)
-                    cmd.Parameters.AddWithValue("@pass", contrasena)
 
-                    Dim resultado = cmd.ExecuteScalar()
+                    Using reader = cmd.ExecuteReader()
+                        If reader.Read() Then
+                            Dim nombre = If(reader.IsDBNull(0), String.Empty, reader.GetString(0))
+                            Dim storedId = If(reader.IsDBNull(1), String.Empty, reader.GetString(1))
+                            Dim storedPass = If(reader.IsDBNull(2), String.Empty, reader.GetString(2))
 
-                    If resultado IsNot Nothing Then
-                        Return resultado.ToString()
-                    Else
-                        Return ""
-                    End If
+                            ' Debug: mostrar valores para validar comportamiento
+                            Debug.WriteLine($"verificarCredenciales: inputId='{idUsuario}', storedId='{storedId}', inputPass='{contrasena}', storedPass='{storedPass}'")
+
+                            ' Comparación case-sensitive en .NET
+                            If String.Equals(storedId, idUsuario, StringComparison.Ordinal) AndAlso String.Equals(storedPass, contrasena, StringComparison.Ordinal) Then
+                                Return nombre
+                            Else
+                                Return String.Empty
+                            End If
+                        Else
+                            Return String.Empty
+                        End If
+                    End Using
                 End Using
             End Using
 
         Catch ex As Exception
             MessageBox.Show("Error al verificar las credenciales: " & ex.Message,
                             "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-            Return ""
+            Return String.Empty
         End Try
     End Function
 
@@ -145,7 +153,7 @@ Public Class formInicioSesion
 
         Dim nombreUsuario As String = verificarCredenciales(usuario, contrasena)
 
-        If nombreUsuario <> "" Then
+        If nombreUsuario <> String.Empty Then
 
             ' Iniciar sesión
             moduloSesion.loged(nombreUsuario, usuario)

@@ -203,4 +203,5 @@ Public Class formCheque
             MessageBox.Show("Error al intentar agregar el cheque: " & ex.Message)
         End Try
     End Sub
+
 End Class
