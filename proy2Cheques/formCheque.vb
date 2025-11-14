@@ -8,7 +8,7 @@ Public Class formCheque
     Dim pr As MySqlDataAdapter
     Dim dsl As DataSet
     Dim conexion As String =
-        "Server=localhost;Database=proycheque;Uid=root;Pwd=;"
+        "Server=localhost;Database=proycheque;Uid=root;Pwd;="
     Dim miconexion As New MySqlConnection(conexion)
 
     Dim proveedores As String
