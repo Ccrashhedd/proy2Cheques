@@ -32,7 +32,7 @@ Public Class formCheque
             Debug.WriteLine("No se pudo establecer DropDownStyle en comboBoxObjGas: " & ex.Message)
         End Try
 
-        ' Cargar los proveedores en el ComboBox (codigo, nombre)
+        ' Cargar los proveedores en el ComboBox (codigo, nombre) y ordenar alfabéticamente
         Try
             Dim sqlProv As String = "SELECT codigo, nombre FROM proveedores"
             Using da As New MySqlDataAdapter(sqlProv, miconexion)
@@ -40,12 +40,16 @@ Public Class formCheque
                 da.Fill(dtProv)
                 If comboBoxProveedor IsNot Nothing Then
                     If dtProv.Rows.Count > 0 Then
-                        comboBoxProveedor.DataSource = dtProv
+                        ' Ordenar por nombre ascendente antes de asignar
+                        Dim dvProv As DataView = dtProv.DefaultView
+                        dvProv.Sort = "nombre ASC"
+                        comboBoxProveedor.DataSource = dvProv
                         comboBoxProveedor.DisplayMember = "nombre"
                         comboBoxProveedor.ValueMember = "codigo"
                         comboBoxProveedor.SelectedIndex = -1 ' sin selección por defecto
                     Else
                         comboBoxProveedor.DataSource = Nothing
+                        comboBoxProveedor.Items.Clear()
                     End If
                 End If
             End Using
@@ -53,7 +57,7 @@ Public Class formCheque
             MessageBox.Show("Error al cargar proveedores: " & ex.Message)
         End Try
 
-        ' Cargar los objetos de gasto en el ComboBox (codigo, detalle)
+        ' Cargar los objetos de gasto en el ComboBox (codigo, detalle) y ordenar alfabéticamente
         Try
             Dim sqlObj As String = "SELECT codigo, detalle FROM objeto_gasto"
             Using da As New MySqlDataAdapter(sqlObj, miconexion)
@@ -61,12 +65,15 @@ Public Class formCheque
                 da.Fill(dtObj)
                 If comboBoxObjGas IsNot Nothing Then
                     If dtObj.Rows.Count > 0 Then
-                        comboBoxObjGas.DataSource = dtObj
+                        Dim dvObj As DataView = dtObj.DefaultView
+                        dvObj.Sort = "detalle ASC"
+                        comboBoxObjGas.DataSource = dvObj
                         comboBoxObjGas.DisplayMember = "detalle"
                         comboBoxObjGas.ValueMember = "codigo"
                         comboBoxObjGas.SelectedIndex = -1
                     Else
                         comboBoxObjGas.DataSource = Nothing
+                        comboBoxObjGas.Items.Clear()
                     End If
                 End If
             End Using
@@ -131,4 +138,69 @@ Public Class formCheque
         End If
     End Sub
 
+    Private Sub Label6_Click(sender As Object, e As EventArgs) Handles Label6.Click
+
+    End Sub
+
+    Private Sub MaterialButton1_Click(sender As Object, e As EventArgs) Handles MaterialButton1.Click
+        Try
+            ' Obtener y validar campos
+            Dim numCheque As String = TextBox1.Text.Trim()
+            If String.IsNullOrEmpty(numCheque) Then
+                MessageBox.Show("Ingrese el número de cheque.")
+                Return
+            End If
+
+            Dim fecha As Date = ObtenerFechaCreacion()
+            If fecha = Date.MinValue Then
+                MessageBox.Show("Seleccione la fecha del cheque.")
+                Return
+            End If
+
+            Dim idProv As String = String.Empty
+            If comboBoxProveedor IsNot Nothing AndAlso comboBoxProveedor.SelectedValue IsNot Nothing Then
+                idProv = comboBoxProveedor.SelectedValue.ToString()
+            End If
+            If String.IsNullOrEmpty(idProv) Then
+                MessageBox.Show("Seleccione un proveedor.")
+                Return
+            End If
+
+            Dim idObj As String = String.Empty
+            If comboBoxObjGas IsNot Nothing AndAlso comboBoxObjGas.SelectedValue IsNot Nothing Then
+                idObj = comboBoxObjGas.SelectedValue.ToString()
+            End If
+            If String.IsNullOrEmpty(idObj) Then
+                MessageBox.Show("Seleccione un objeto de gasto.")
+                Return
+            End If
+
+            Dim monto As Double = 0
+            If Not Double.TryParse(TextBox2.Text.Trim(), monto) Then
+                MessageBox.Show("Ingrese un monto válido.")
+                Return
+            End If
+
+            Dim montoText As String = RichTextBox1.Text.Trim()
+            Dim detalle As String = RichTextBox2.Text.Trim()
+
+            ' Llamar al modulo para agregar el cheque
+            Dim resultado As String = moduloCheque.agregarCheque(numCheque, fecha, idProv, monto, montoText, detalle, idObj)
+            MessageBox.Show(resultado)
+
+            ' Si fue exitoso, limpiar campos
+            If resultado IsNot Nothing AndAlso resultado.ToLower().Contains("exitos") Then
+                TextBox1.Clear()
+                TextBox2.Clear()
+                RichTextBox1.Clear()
+                RichTextBox2.Clear()
+                If comboBoxProveedor IsNot Nothing Then comboBoxProveedor.SelectedIndex = -1
+                If comboBoxObjGas IsNot Nothing Then comboBoxObjGas.SelectedIndex = -1
+                DateTimePicker1.CustomFormat = " "
+            End If
+
+        Catch ex As Exception
+            MessageBox.Show("Error al intentar agregar el cheque: " & ex.Message)
+        End Try
+    End Sub
 End Class

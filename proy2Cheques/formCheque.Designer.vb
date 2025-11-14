@@ -51,17 +51,17 @@ Partial Class formCheque
         ' comboBoxProveedor
         ' 
         comboBoxProveedor.FormattingEnabled = True
-        comboBoxProveedor.Location = New Point(110, 204)
+        comboBoxProveedor.Location = New Point(73, 204)
         comboBoxProveedor.Name = "comboBoxProveedor"
-        comboBoxProveedor.Size = New Size(147, 23)
+        comboBoxProveedor.Size = New Size(170, 23)
         comboBoxProveedor.TabIndex = 1
         ' 
         ' comboBoxObjGas
         ' 
         comboBoxObjGas.FormattingEnabled = True
-        comboBoxObjGas.Location = New Point(367, 205)
+        comboBoxObjGas.Location = New Point(356, 205)
         comboBoxObjGas.Name = "comboBoxObjGas"
-        comboBoxObjGas.Size = New Size(152, 23)
+        comboBoxObjGas.Size = New Size(163, 23)
         comboBoxObjGas.TabIndex = 2
         ' 
         ' TextBox1
@@ -125,7 +125,7 @@ Partial Class formCheque
         ' Label5
         ' 
         Label5.AutoSize = True
-        Label5.Location = New Point(28, 208)
+        Label5.Location = New Point(6, 207)
         Label5.Name = "Label5"
         Label5.Size = New Size(61, 15)
         Label5.TabIndex = 10
@@ -134,7 +134,7 @@ Partial Class formCheque
         ' Label6
         ' 
         Label6.AutoSize = True
-        Label6.Location = New Point(276, 208)
+        Label6.Location = New Point(258, 208)
         Label6.Name = "Label6"
         Label6.Size = New Size(92, 15)
         Label6.TabIndex = 11
