@@ -24,14 +24,13 @@ Partial Class formControlProv
     Private Sub InitializeComponent()
         Dim DataGridViewCellStyle1 As DataGridViewCellStyle = New DataGridViewCellStyle()
         DataGridView1 = New DataGridView()
+        MaterialButton1 = New MaterialSkin.Controls.MaterialButton()
+        MaterialLabel1 = New MaterialSkin.Controls.MaterialLabel()
         columnIdProveedor = New DataGridViewTextBoxColumn()
         columnNombre = New DataGridViewTextBoxColumn()
         columnRUC = New DataGridViewTextBoxColumn()
         columnUbicacion = New DataGridViewTextBoxColumn()
-        columnEditar = New DataGridViewButtonColumn()
         columnEliminar = New DataGridViewButtonColumn()
-        MaterialButton1 = New MaterialSkin.Controls.MaterialButton()
-        MaterialLabel1 = New MaterialSkin.Controls.MaterialLabel()
         CType(DataGridView1, ComponentModel.ISupportInitialize).BeginInit()
         SuspendLayout()
         ' 
@@ -48,54 +47,12 @@ Partial Class formControlProv
         DataGridViewCellStyle1.WrapMode = DataGridViewTriState.True
         DataGridView1.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle1
         DataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        DataGridView1.Columns.AddRange(New DataGridViewColumn() {columnIdProveedor, columnNombre, columnRUC, columnUbicacion, columnEditar, columnEliminar})
-        DataGridView1.Location = New Point(69, 125)
+        DataGridView1.Columns.AddRange(New DataGridViewColumn() {columnIdProveedor, columnNombre, columnRUC, columnUbicacion, columnEliminar})
+        DataGridView1.Location = New Point(81, 125)
         DataGridView1.Name = "DataGridView1"
         DataGridView1.ReadOnly = True
         DataGridView1.Size = New Size(649, 392)
         DataGridView1.TabIndex = 3
-        ' 
-        ' columnIdProveedor
-        ' 
-        columnIdProveedor.Frozen = True
-        columnIdProveedor.HeaderText = "ID Proveedor"
-        columnIdProveedor.Name = "columnIdProveedor"
-        columnIdProveedor.ReadOnly = True
-        ' 
-        ' columnNombre
-        ' 
-        columnNombre.Frozen = True
-        columnNombre.HeaderText = "Nombre Proveedor"
-        columnNombre.Name = "columnNombre"
-        columnNombre.ReadOnly = True
-        ' 
-        ' columnRUC
-        ' 
-        columnRUC.Frozen = True
-        columnRUC.HeaderText = "RUC"
-        columnRUC.Name = "columnRUC"
-        columnRUC.ReadOnly = True
-        ' 
-        ' columnUbicacion
-        ' 
-        columnUbicacion.Frozen = True
-        columnUbicacion.HeaderText = "Ubicacion"
-        columnUbicacion.Name = "columnUbicacion"
-        columnUbicacion.ReadOnly = True
-        ' 
-        ' columnEditar
-        ' 
-        columnEditar.Frozen = True
-        columnEditar.HeaderText = "Editar"
-        columnEditar.Name = "columnEditar"
-        columnEditar.ReadOnly = True
-        ' 
-        ' columnEliminar
-        ' 
-        columnEliminar.Frozen = True
-        columnEliminar.HeaderText = "Eliminar"
-        columnEliminar.Name = "columnEliminar"
-        columnEliminar.ReadOnly = True
         ' 
         ' MaterialButton1
         ' 
@@ -129,6 +86,41 @@ Partial Class formControlProv
         MaterialLabel1.TabIndex = 5
         MaterialLabel1.Text = "Proveedores"
         ' 
+        ' columnIdProveedor
+        ' 
+        columnIdProveedor.Frozen = True
+        columnIdProveedor.HeaderText = "ID Proveedor"
+        columnIdProveedor.Name = "columnIdProveedor"
+        columnIdProveedor.ReadOnly = True
+        ' 
+        ' columnNombre
+        ' 
+        columnNombre.Frozen = True
+        columnNombre.HeaderText = "Nombre Proveedor"
+        columnNombre.Name = "columnNombre"
+        columnNombre.ReadOnly = True
+        ' 
+        ' columnRUC
+        ' 
+        columnRUC.Frozen = True
+        columnRUC.HeaderText = "RUC"
+        columnRUC.Name = "columnRUC"
+        columnRUC.ReadOnly = True
+        ' 
+        ' columnUbicacion
+        ' 
+        columnUbicacion.Frozen = True
+        columnUbicacion.HeaderText = "Ubicacion"
+        columnUbicacion.Name = "columnUbicacion"
+        columnUbicacion.ReadOnly = True
+        ' 
+        ' columnEliminar
+        ' 
+        columnEliminar.Frozen = True
+        columnEliminar.HeaderText = "Eliminar"
+        columnEliminar.Name = "columnEliminar"
+        columnEliminar.ReadOnly = True
+        ' 
         ' formControlProv
         ' 
         AutoScaleDimensions = New SizeF(96F, 96F)
@@ -144,12 +136,11 @@ Partial Class formControlProv
         PerformLayout()
     End Sub
     Friend WithEvents DataGridView1 As DataGridView
+    Friend WithEvents MaterialButton1 As MaterialSkin.Controls.MaterialButton
+    Friend WithEvents MaterialLabel1 As MaterialSkin.Controls.MaterialLabel
     Friend WithEvents columnIdProveedor As DataGridViewTextBoxColumn
     Friend WithEvents columnNombre As DataGridViewTextBoxColumn
     Friend WithEvents columnRUC As DataGridViewTextBoxColumn
     Friend WithEvents columnUbicacion As DataGridViewTextBoxColumn
-    Friend WithEvents columnEditar As DataGridViewButtonColumn
     Friend WithEvents columnEliminar As DataGridViewButtonColumn
-    Friend WithEvents MaterialButton1 As MaterialSkin.Controls.MaterialButton
-    Friend WithEvents MaterialLabel1 As MaterialSkin.Controls.MaterialLabel
 End Class

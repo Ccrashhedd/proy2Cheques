@@ -2,6 +2,7 @@
 
     Private sesionControl As controlSesionUser
     Private formChq As formCheque
+    Private formProvControl As formControlProv
 
     Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         ' Agregar el userControl que es la parte de iniciar sesion
@@ -217,6 +218,26 @@
             formChq.Focus()
         Catch ex As Exception
             Debug.WriteLine("Error al mostrar formCheque: " & ex.Message)
+        End Try
+    End Sub
+
+    Private Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click
+        ' Evitar NullReferenceException: crear instancia si es Nothing o estuvo cerrada
+        Try
+            If formProvControl Is Nothing OrElse formProvControl.IsDisposed Then
+                formProvControl = New formControlProv()
+                ' limpiar referencia cuando se cierre
+                AddHandler formProvControl.FormClosed, Sub(s, args) formProvControl = Nothing
+                ' Cuando se cierre el formulario de control de proveedor, refrescar si es necesario
+                ' AddHandler formProvControl.FormClosed, Sub(s, args) CargarProveedoresEnCombo() ' Si se requiere refrescar un combo específico
+            End If
+
+            ' Mostrar formulario (modeless) y llevar al frente
+            formProvControl.Show()
+            formProvControl.BringToFront()
+            formProvControl.Focus()
+        Catch ex As Exception
+            Debug.WriteLine("Error al mostrar formControlProv: " & ex.Message)
         End Try
     End Sub
 
