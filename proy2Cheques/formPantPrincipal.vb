@@ -1,6 +1,7 @@
 ﻿Public Class Form1
 
     Private sesionControl As controlSesionUser
+    Private formChq As formCheque
 
     Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         ' Agregar el userControl que es la parte de iniciar sesion
@@ -171,5 +172,42 @@
 
     End Sub
 
+    ' Handler when the cheque form loses focus (user clicked outside)
+    Private Async Sub OnFormChqDeactivated(sender As Object, e As EventArgs)
+        Try
+            Dim f As formCheque = TryCast(sender, formCheque)
+            If f IsNot Nothing Then
+                ' Llamar la atencion: briefly make form topmost and beep
+                Dim prevTopMost = f.TopMost
+                f.TopMost = True
+                System.Media.SystemSounds.Beep.Play()
+                Await Task.Delay(300)
+                If Not f.IsDisposed Then
+                    f.TopMost = prevTopMost
+                End If
+            End If
+        Catch ex As Exception
+            Debug.WriteLine("Error en OnFormChqDeactivated: " & ex.Message)
+        End Try
+    End Sub
 
+    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
+        ' Evitar NullReferenceException: crear instancia si es Nothing o estuvo cerrada
+        Try
+            If formChq Is Nothing OrElse formChq.IsDisposed Then
+                formChq = New formCheque()
+                ' limpiar referencia cuando se cierre
+                AddHandler formChq.FormClosed, Sub(s, args) formChq = Nothing
+                ' detectar cuando pierde foco para llamar la atencion
+                AddHandler formChq.Deactivate, AddressOf OnFormChqDeactivated
+            End If
+
+            ' Mostrar formulario (modeless) y llevar al frente
+            formChq.Show()
+            formChq.BringToFront()
+            formChq.Focus()
+        Catch ex As Exception
+            Debug.WriteLine("Error al mostrar formCheque: " & ex.Message)
+        End Try
+    End Sub
 End Class
