@@ -330,12 +330,30 @@ Public Class Form1
         End Try
     End Sub
 
+    Private Sub MaterialTabControl1_SelectedIndexChanged(sender As Object, e As EventArgs) Handles MaterialTabControl1.SelectedIndexChanged
+        Try
+            Dim idx = MaterialTabControl1.SelectedIndex
+            ' TabPage1 is the deposits tab (index 2 in designer order)
+            If MaterialTabControl1.TabPages(idx) Is TabPage1 Then
+                CargarTiposDeposito()
+                CargarDepositosEnGrid()
+                If DataGridView2 IsNot Nothing Then
+                    DataGridView2.Visible = True
+                    DataGridView2.Refresh()
+                End If
+            End If
+        Catch ex As Exception
+            Debug.WriteLine("Error en SelectedIndexChanged: " & ex.Message)
+        End Try
+    End Sub
+
     ' Cargar depósitos en DataGridView2 desde moduloDeposito
     Public Sub CargarDepositosEnGrid()
         Try
             Dim dt As DataTable = moduloDeposito.ObtenerDepositos()
             If dt Is Nothing Then Return
 
+            DataGridView2.SuspendLayout()
             DataGridView2.Rows.Clear()
 
             ' Determinar nombres de columnas devueltas
@@ -370,12 +388,13 @@ Public Class Form1
 
                 If Not String.IsNullOrEmpty(colFecha) AndAlso dt.Columns.Contains(colFecha) AndAlso Not IsDBNull(r(colFecha)) Then
                     fecha = Convert.ToDateTime(r(colFecha)).ToString("yyyy-MM-dd")
-                ElseIf dt.Columns.Count > 0 Then
-                    fecha = Convert.ToDateTime(r(dt.Columns.Count - 1)).ToString("yyyy-MM-dd")
                 End If
 
                 DataGridView2.Rows.Add(idDep, tipoNombre, monto.ToString("N2"), fecha)
             Next
+
+            DataGridView2.ResumeLayout()
+            DataGridView2.Refresh()
         Catch ex As Exception
             Debug.WriteLine("Error al cargar depósitos: " & ex.Message)
         End Try
@@ -498,6 +517,22 @@ Public Class Form1
 
         Catch ex As Exception
             MessageBox.Show("Error al intentar agregar depósito: " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        End Try
+    End Sub
+
+    Private Sub Form1_Shown(sender As Object, e As EventArgs) Handles Me.Shown
+        Try
+            ' Re-cargar depósitos y tipos al mostrarse el formulario para asegurar que el grid se pinte correctamente
+            CargarTiposDeposito()
+            CargarDepositosEnGrid()
+
+            If DataGridView2 IsNot Nothing Then
+                DataGridView2.Visible = True
+                DataGridView2.Refresh()
+                DataGridView2.Invalidate()
+            End If
+        Catch ex As Exception
+            Debug.WriteLine("Error en Form1_Shown: " & ex.Message)
         End Try
     End Sub
 End Class
