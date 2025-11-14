@@ -41,8 +41,8 @@ Module moduloCheque
                 cmd.Parameters.AddWithValue("@detalle", detalle)
                 cmd.Parameters.AddWithValue("@idObGast", idObjGast)
 
-                ' Estado se guarda como entero en la BD
-                cmd.Parameters.AddWithValue("@estado", estadoCheque(1))
+                ' Estado se guarda como entero en la BD (1 = Circulante)
+                cmd.Parameters.AddWithValue("@estado", 1)
 
                 miconexion.Open()
                 cmd.ExecuteNonQuery()
@@ -66,7 +66,8 @@ Module moduloCheque
             Dim consulta As String = "UPDATE cheques SET fechaAnulacion = @fechaNul, estado = @estado WHERE idCheque = @nuCheque"
             Using cmd As New MySqlCommand(consulta, miconexion)
                 cmd.Parameters.AddWithValue("@fechaNul", fechaNul)
-                cmd.Parameters.AddWithValue("@estado", estadoCheque(0))
+                ' Guardar estado como entero (0 = Anulado)
+                cmd.Parameters.AddWithValue("@estado", 0)
                 cmd.Parameters.AddWithValue("@nuCheque", numCheque)
                 miconexion.Open()
                 Dim filasAfectadas As Integer = cmd.ExecuteNonQuery()
@@ -78,8 +79,32 @@ Module moduloCheque
             End Using
         Catch ex As Exception
             Return "Error al anular el cheque: " & ex.Message
+        Finally
+            If miconexion.State <> ConnectionState.Closed Then
+                miconexion.Close()
+            End If
         End Try
 
+    End Function
+
+    ' Devuelve un DataTable con los cheques y datos relacionados (proveedor, objeto de gasto)
+    Public Function ObtenerCheques() As DataTable
+        Dim dt As New DataTable()
+        Try
+            Dim sql As String = "SELECT c.idCheque, c.fechaCheque, c.monto, c.montoTexto, c.detalle, c.fechaAnulacion, c.estado, " &
+                                "p.nombre AS proveedor, o.detalle AS objeto " &
+                                "FROM cheques c " &
+                                "LEFT JOIN proveedores p ON c.idProveedor = p.codigo " &
+                                "LEFT JOIN objeto_gasto o ON c.idObjGasto = o.codigo " &
+                                "ORDER BY c.estado DESC, p.nombre ASC;"
+
+            Using da As New MySqlDataAdapter(sql, miconexion)
+                da.Fill(dt)
+            End Using
+        Catch ex As Exception
+            Debug.WriteLine("Error en ObtenerCheques: " & ex.Message)
+        End Try
+        Return dt
     End Function
 
 End Module
