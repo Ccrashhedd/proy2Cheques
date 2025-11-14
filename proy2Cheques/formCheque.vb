@@ -1,6 +1,7 @@
 ﻿Imports System.Data.SqlClient
 Imports MySqlConnector
 Imports System.Globalization
+Imports System.Text.RegularExpressions
 
 Public Class formCheque
 
@@ -83,6 +84,11 @@ Public Class formCheque
 
         ' Inicializar monto en letras vacío
         RichTextBox1.Text = String.Empty
+
+        ' Añadir validadores de entrada
+        AddHandler TextBox1.KeyPress, AddressOf TextBox1_KeyPress ' número de cheque: solo dígitos
+        AddHandler TextBox2.KeyPress, AddressOf TextBox2_KeyPress ' monto: permitir dígitos y un punto/coma
+        ' TextBox2.TextChanged ya maneja parseo y conversión
     End Sub
 
     Private Sub DateTimePicker1_ValueChanged(sender As Object, e As EventArgs) Handles DateTimePicker1.ValueChanged
@@ -105,24 +111,95 @@ Public Class formCheque
         Return DateTimePicker1.Value.Date
     End Function
 
+    ' Permitir solo dígitos en número de cheque
+    Private Sub TextBox1_KeyPress(sender As Object, e As KeyPressEventArgs)
+        If Char.IsControl(e.KeyChar) Then Return
+        If Not Char.IsDigit(e.KeyChar) Then
+            e.Handled = True
+        End If
+    End Sub
+
+    ' Validación de tecla para TextBox2: permitir dígitos y un solo punto (o coma)
+    Private Sub TextBox2_KeyPress(sender As Object, e As KeyPressEventArgs)
+        If Char.IsControl(e.KeyChar) Then Return
+
+        Dim tb = DirectCast(sender, TextBox)
+        Dim ch As Char = e.KeyChar
+
+        If Char.IsDigit(ch) Then
+            ' permitir dígitos siempre (TextChanged limpiará el exceso si se pega)
+            Return
+        End If
+
+        If ch = "."c Or ch = ","c Then
+            ' permitir un solo separador decimal
+            If Not tb.Text.Contains(".") Then
+                ' allow dot (we'll normalize commas later)
+                Return
+            ElseIf Not tb.Text.Contains(",") And Not tb.Text.Contains(".") Then
+                Return
+            End If
+        End If
+
+        ' Si llegó aquí, carácter no permitido
+        e.Handled = True
+    End Sub
+
     ' Actualizar el texto de "Monto en letras" cuando cambia el TextBox2
     Private Sub TextBox2_TextChanged(sender As Object, e As EventArgs) Handles TextBox2.TextChanged
-        Dim texto As String = TextBox2.Text.Trim()
-        If String.IsNullOrEmpty(texto) Then
+        Dim textoOriginal As String = TextBox2.Text
+        If String.IsNullOrEmpty(textoOriginal) Then
             RichTextBox1.Text = String.Empty
             Return
         End If
 
-        ' Intentar parsear con la cultura actual
-        Dim monto As Decimal = 0D
-        Dim success As Boolean = Decimal.TryParse(texto, NumberStyles.Number Or NumberStyles.AllowCurrencySymbol, CultureInfo.CurrentCulture, monto)
+        ' Normalizar: cambiar comas por punto y eliminar caracteres no numericos (excepto punto)
+        Dim t As String = textoOriginal.Replace(" ", "").Replace("$", "").Replace(",", ".")
 
-        ' Si falla, intentar con invariant (aceptar punto como separador) después de limpiar espacios y símbolos
+        ' Eliminar caracteres no dígitos y no punto
+        Dim cleaned As String = Regex.Replace(t, "[^0-9\.]", "")
+
+        ' Si hay más de un punto, quedarse con el primero y eliminar el resto
+        Dim firstDot = cleaned.IndexOf(".")
+        If firstDot >= 0 Then
+            Dim before = cleaned.Substring(0, firstDot + 1)
+            Dim after = cleaned.Substring(firstDot + 1)
+            after = Regex.Replace(after, "\.", "") ' quitar otros puntos
+            cleaned = before & after
+        End If
+
+        ' Limitar partes: enteros max 7, decimales max 2
+        Dim parts = cleaned.Split("."c)
+        Dim intPart As String = parts(0)
+        If intPart.Length > 7 Then intPart = intPart.Substring(0, 7)
+        Dim decPart As String = String.Empty
+        If parts.Length > 1 Then
+            decPart = parts(1)
+            If decPart.Length > 2 Then decPart = decPart.Substring(0, 2)
+        End If
+
+        ' Preserve trailing dot if user typed it (allow entering decimals after reaching 7 digits)
+        Dim finalText As String
+        If parts.Length > 1 Then
+            ' user has typed a separator; keep it even if decimals empty
+            finalText = intPart & "." & decPart
+        Else
+            finalText = intPart
+        End If
+
+        ' Si el texto fue modificado por limpieza, actualizar textbox conservando caret
+        If Not finalText.Equals(textoOriginal) Then
+            Dim sel = TextBox2.SelectionStart
+            TextBox2.Text = finalText
+            TextBox2.SelectionStart = Math.Min(finalText.Length, sel)
+        End If
+
+        ' Ahora intentar parsear con invariant culture (punto) o culture actual
+        Dim monto As Decimal = 0D
+        Dim success As Boolean = Decimal.TryParse(finalText.TrimEnd("."c), NumberStyles.Number Or NumberStyles.AllowDecimalPoint, CultureInfo.InvariantCulture, monto)
         If Not success Then
-            Dim cleaned = texto.Replace(" ", "").Replace("$", "")
-            ' permitir tanto coma como punto: normalizar a punto para invariant
-            cleaned = cleaned.Replace(",", ".")
-            success = Decimal.TryParse(cleaned, NumberStyles.Number, CultureInfo.InvariantCulture, monto)
+            ' también intentar con la cultura actual
+            success = Decimal.TryParse(finalText.TrimEnd("."c), NumberStyles.Number Or NumberStyles.AllowDecimalPoint, CultureInfo.CurrentCulture, monto)
         End If
 
         If success Then
@@ -133,7 +210,6 @@ Public Class formCheque
                 Debug.WriteLine("Error al convertir monto a palabras: " & ex.Message)
             End Try
         Else
-            ' No mostrar error intrusivo; solo limpiar
             RichTextBox1.Text = String.Empty
         End If
     End Sub
@@ -148,6 +224,13 @@ Public Class formCheque
             Dim numCheque As String = TextBox1.Text.Trim()
             If String.IsNullOrEmpty(numCheque) Then
                 MessageBox.Show("Ingrese el número de cheque.")
+                Return
+            End If
+
+            ' Validar que el número de cheque sea entero
+            Dim numChequeInt As Long = 0
+            If Not Long.TryParse(numCheque, numChequeInt) Then
+                MessageBox.Show("El número de cheque debe contener solo dígitos enteros.")
                 Return
             End If
 
@@ -175,17 +258,28 @@ Public Class formCheque
                 Return
             End If
 
-            Dim monto As Double = 0
-            If Not Double.TryParse(TextBox2.Text.Trim(), monto) Then
-                MessageBox.Show("Ingrese un monto válido.")
+            ' Validar monto con patrón: hasta 7 enteros, opcional . y hasta 2 decimales
+            Dim montoText As String = TextBox2.Text.Trim()
+            Dim montoPattern As String = "^\d{1,7}(?:\.\d{1,2})?$"
+            If Not Regex.IsMatch(montoText.TrimEnd("."c), montoPattern) Then
+                MessageBox.Show("Ingrese un monto válido: hasta 7 dígitos enteros, opcional '.' y hasta 2 decimales (ej. 1234567.89).")
                 Return
             End If
 
-            Dim montoText As String = RichTextBox1.Text.Trim()
+            Dim montoVal As Double = 0
+            If Not Double.TryParse(montoText, NumberStyles.Number, CultureInfo.InvariantCulture, montoVal) Then
+                ' intentar con cultura actual
+                If Not Double.TryParse(montoText, NumberStyles.Number, CultureInfo.CurrentCulture, montoVal) Then
+                    MessageBox.Show("El monto ingresado no es un número válido.")
+                    Return
+                End If
+            End If
+
+            Dim montoEnLetras As String = RichTextBox1.Text.Trim()
             Dim detalle As String = RichTextBox2.Text.Trim()
 
             ' Llamar al modulo para agregar el cheque
-            Dim resultado As String = moduloCheque.agregarCheque(numCheque, fecha, idProv, monto, montoText, detalle, idObj)
+            Dim resultado As String = moduloCheque.agregarCheque(numChequeInt.ToString(), fecha, idProv, montoVal, montoEnLetras, detalle, idObj)
             MessageBox.Show(resultado)
 
             ' Si fue exitoso, limpiar campos
@@ -204,4 +298,7 @@ Public Class formCheque
         End Try
     End Sub
 
+    Private Sub TextBox1_TextChanged(sender As Object, e As EventArgs) Handles TextBox1.TextChanged
+
+    End Sub
 End Class
