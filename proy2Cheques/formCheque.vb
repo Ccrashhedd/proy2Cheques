@@ -20,24 +20,32 @@ Public Class formCheque
         DateTimePicker1.CustomFormat = " "
         ' Asegura que el control no muestre tiempo; usaremos .Value.Date al leer
 
-        ' Cargar los proveedores en el ComboBox1 (codigo, nombre)
+        ' Asegurar que los combobox no permitan escritura manual
+        Try
+            comboBoxProveedor.DropDownStyle = ComboBoxStyle.DropDownList
+        Catch ex As Exception
+            Debug.WriteLine("No se pudo establecer DropDownStyle en comboBoxProveedor: " & ex.Message)
+        End Try
+        Try
+            comboBoxObjGas.DropDownStyle = ComboBoxStyle.DropDownList
+        Catch ex As Exception
+            Debug.WriteLine("No se pudo establecer DropDownStyle en comboBoxObjGas: " & ex.Message)
+        End Try
+
+        ' Cargar los proveedores en el ComboBox (codigo, nombre)
         Try
             Dim sqlProv As String = "SELECT codigo, nombre FROM proveedores"
             Using da As New MySqlDataAdapter(sqlProv, miconexion)
                 Dim dtProv As New DataTable()
                 da.Fill(dtProv)
-                Dim cbProv As ComboBox = Nothing
-                Dim foundProv() As Control = Me.Controls.Find("comboBoxProveedores", True)
-                If foundProv.Length > 0 Then cbProv = TryCast(foundProv(0), ComboBox)
-                If cbProv IsNot Nothing Then
+                If comboBoxProveedor IsNot Nothing Then
                     If dtProv.Rows.Count > 0 Then
-                        cbProv.DataSource = dtProv
-                        cbProv.DisplayMember = "nombre"
-                        cbProv.ValueMember = "codigo"
-                        cbProv.SelectedIndex = -1 ' sin selección por defecto
-                        cbProv.DropDownStyle = ComboBoxStyle.DropDownList
+                        comboBoxProveedor.DataSource = dtProv
+                        comboBoxProveedor.DisplayMember = "nombre"
+                        comboBoxProveedor.ValueMember = "codigo"
+                        comboBoxProveedor.SelectedIndex = -1 ' sin selección por defecto
                     Else
-                        cbProv.DataSource = Nothing
+                        comboBoxProveedor.DataSource = Nothing
                     End If
                 End If
             End Using
@@ -45,24 +53,20 @@ Public Class formCheque
             MessageBox.Show("Error al cargar proveedores: " & ex.Message)
         End Try
 
-        ' Cargar los objetos de gasto en el ComboBox2 (codigo, detalle)
+        ' Cargar los objetos de gasto en el ComboBox (codigo, detalle)
         Try
             Dim sqlObj As String = "SELECT codigo, detalle FROM objeto_gasto"
             Using da As New MySqlDataAdapter(sqlObj, miconexion)
                 Dim dtObj As New DataTable()
                 da.Fill(dtObj)
-                Dim cbObj As ComboBox = Nothing
-                Dim foundObj() As Control = Me.Controls.Find("comboBoxObjGas", True)
-                If foundObj.Length > 0 Then cbObj = TryCast(foundObj(0), ComboBox)
-                If cbObj IsNot Nothing Then
+                If comboBoxObjGas IsNot Nothing Then
                     If dtObj.Rows.Count > 0 Then
-                        cbObj.DataSource = dtObj
-                        cbObj.DisplayMember = "detalle"
-                        cbObj.ValueMember = "codigo"
-                        cbObj.SelectedIndex = -1
-                        cbObj.DropDownStyle = ComboBoxStyle.DropDownList
+                        comboBoxObjGas.DataSource = dtObj
+                        comboBoxObjGas.DisplayMember = "detalle"
+                        comboBoxObjGas.ValueMember = "codigo"
+                        comboBoxObjGas.SelectedIndex = -1
                     Else
-                        cbObj.DataSource = Nothing
+                        comboBoxObjGas.DataSource = Nothing
                     End If
                 End If
             End Using

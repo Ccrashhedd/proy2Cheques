@@ -28,6 +28,7 @@ Partial Class Form1
         Label2 = New Label()
         Label1 = New Label()
         TabPage2 = New TabPage()
+        Button3 = New Button()
         TextBox1 = New TextBox()
         Button2 = New Button()
         Button1 = New Button()
@@ -61,7 +62,6 @@ Partial Class Form1
         columnMontoDeposito = New DataGridViewTextBoxColumn()
         columnFechaDeposito = New DataGridViewTextBoxColumn()
         TabPage3 = New TabPage()
-        Button3 = New Button()
         CType(SplitContainer1, ComponentModel.ISupportInitialize).BeginInit()
         SplitContainer1.Panel2.SuspendLayout()
         SplitContainer1.SuspendLayout()
@@ -150,6 +150,15 @@ Partial Class Form1
         TabPage2.TabIndex = 1
         TabPage2.Text = "Cheques"
         TabPage2.UseVisualStyleBackColor = True
+        ' 
+        ' Button3
+        ' 
+        Button3.Location = New Point(556, 8)
+        Button3.Name = "Button3"
+        Button3.Size = New Size(95, 28)
+        Button3.TabIndex = 6
+        Button3.Text = "Objeto Gasto"
+        Button3.UseVisualStyleBackColor = True
         ' 
         ' TextBox1
         ' 
@@ -450,15 +459,6 @@ Partial Class Form1
         TabPage3.TabIndex = 3
         TabPage3.Text = "Conciliación"
         TabPage3.UseVisualStyleBackColor = True
-        ' 
-        ' Button3
-        ' 
-        Button3.Location = New Point(556, 8)
-        Button3.Name = "Button3"
-        Button3.Size = New Size(95, 28)
-        Button3.TabIndex = 6
-        Button3.Text = "Objeto Gasto"
-        Button3.UseVisualStyleBackColor = True
         ' 
         ' Form1
         ' 

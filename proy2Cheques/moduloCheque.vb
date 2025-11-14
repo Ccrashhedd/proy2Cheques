@@ -22,9 +22,7 @@ Module moduloCheque
                                   ByVal monto As Double,
                                   ByVal montoText As String,
                                   ByVal detalle As String,
-                                  ByVal idObjGast As String,
-                                  ByVal fechaAnul As Date,
-                                  ByVal estado As Integer) As String
+                                  ByVal idObjGast As String) As String
         Try
             ' Validaciones básicas
             If String.IsNullOrWhiteSpace(numCheque) Then
@@ -44,7 +42,7 @@ Module moduloCheque
                 cmd.Parameters.AddWithValue("@idObGast", idObjGast)
 
                 ' Estado se guarda como entero en la BD
-                cmd.Parameters.AddWithValue("@estado", estado = estadoCheque(1))
+                cmd.Parameters.AddWithValue("@estado", estadoCheque(1))
 
                 miconexion.Open()
                 cmd.ExecuteNonQuery()
