@@ -500,4 +500,5 @@ Public Class Form1
             MessageBox.Show("Error al intentar agregar depósito: " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
     End Sub
+
 End Class

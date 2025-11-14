@@ -39,7 +39,7 @@ Partial Class formProveedor
         MaterialLabel1.AutoSize = True
         MaterialLabel1.Depth = 0
         MaterialLabel1.Font = New Font("Roboto", 14F, FontStyle.Regular, GraphicsUnit.Pixel)
-        MaterialLabel1.Location = New Point(20, 81)
+        MaterialLabel1.Location = New Point(23, 108)
         MaterialLabel1.MouseState = MaterialSkin.MouseState.HOVER
         MaterialLabel1.Name = "MaterialLabel1"
         MaterialLabel1.Size = New Size(197, 19)
@@ -49,65 +49,69 @@ Partial Class formProveedor
         ' Label1
         ' 
         Label1.AutoSize = True
-        Label1.Location = New Point(40, 127)
+        Label1.Location = New Point(46, 169)
         Label1.Name = "Label1"
-        Label1.Size = New Size(46, 15)
+        Label1.Size = New Size(58, 20)
         Label1.TabIndex = 1
         Label1.Text = "Codigo"
         ' 
         ' TextBox1
         ' 
-        TextBox1.Location = New Point(92, 124)
+        TextBox1.Location = New Point(105, 165)
+        TextBox1.Margin = New Padding(3, 4, 3, 4)
         TextBox1.MaxLength = 5
         TextBox1.Name = "TextBox1"
-        TextBox1.Size = New Size(100, 23)
+        TextBox1.Size = New Size(114, 27)
         TextBox1.TabIndex = 2
         ' 
         ' TextBox2
         ' 
-        TextBox2.Location = New Point(289, 124)
+        TextBox2.Location = New Point(330, 165)
+        TextBox2.Margin = New Padding(3, 4, 3, 4)
         TextBox2.Name = "TextBox2"
-        TextBox2.Size = New Size(100, 23)
+        TextBox2.Size = New Size(114, 27)
         TextBox2.TabIndex = 3
         ' 
         ' TextBox3
         ' 
-        TextBox3.Location = New Point(92, 192)
+        TextBox3.Location = New Point(105, 256)
+        TextBox3.Margin = New Padding(3, 4, 3, 4)
         TextBox3.Name = "TextBox3"
-        TextBox3.Size = New Size(100, 23)
+        TextBox3.Size = New Size(114, 27)
         TextBox3.TabIndex = 4
         ' 
         ' TextBox4
         ' 
-        TextBox4.Location = New Point(289, 197)
+        TextBox4.Location = New Point(330, 263)
+        TextBox4.Margin = New Padding(3, 4, 3, 4)
         TextBox4.Name = "TextBox4"
-        TextBox4.Size = New Size(100, 23)
+        TextBox4.Size = New Size(114, 27)
         TextBox4.TabIndex = 5
         ' 
         ' Label2
         ' 
         Label2.AutoSize = True
-        Label2.Location = New Point(232, 127)
+        Label2.Location = New Point(265, 169)
         Label2.Name = "Label2"
-        Label2.Size = New Size(51, 15)
+        Label2.Size = New Size(64, 20)
         Label2.TabIndex = 6
         Label2.Text = "Nombre"
         ' 
         ' Label3
         ' 
         Label3.AutoSize = True
-        Label3.Location = New Point(56, 195)
+        Label3.Location = New Point(64, 260)
         Label3.Name = "Label3"
-        Label3.Size = New Size(30, 15)
+        Label3.Size = New Size(37, 20)
         Label3.TabIndex = 7
         Label3.Text = "RUC"
         ' 
         ' Label4
         ' 
         Label4.AutoSize = True
-        Label4.Location = New Point(226, 200)
+        Label4.Location = New Point(258, 267)
         Label4.Name = "Label4"
-        Label4.Size = New Size(57, 15)
+        Label4.Size = New Size(72, 20)
         Label4.TabIndex = 8
         Label4.Text = "Direccion"
         ' 
@@ -118,8 +122,8 @@ Partial Class formProveedor
         MaterialButton1.Depth = 0
         MaterialButton1.HighEmphasis = True
         MaterialButton1.Icon = Nothing
-        MaterialButton1.Location = New Point(166, 250)
-        MaterialButton1.Margin = New Padding(4, 6, 4, 6)
+        MaterialButton1.Location = New Point(190, 333)
+        MaterialButton1.Margin = New Padding(5, 8, 5, 8)
         MaterialButton1.MouseState = MaterialSkin.MouseState.HOVER
         MaterialButton1.Name = "MaterialButton1"
         MaterialButton1.NoAccentTextColor = Color.Empty
@@ -132,9 +136,9 @@ Partial Class formProveedor
         ' 
         ' formProveedor
         ' 
-        AutoScaleDimensions = New SizeF(7F, 15F)
+        AutoScaleDimensions = New SizeF(8F, 20F)
         AutoScaleMode = AutoScaleMode.Font
-        ClientSize = New Size(445, 309)
+        ClientSize = New Size(509, 412)
         Controls.Add(MaterialButton1)
         Controls.Add(Label4)
         Controls.Add(Label3)
@@ -145,7 +149,9 @@ Partial Class formProveedor
         Controls.Add(TextBox1)
         Controls.Add(Label1)
         Controls.Add(MaterialLabel1)
+        Margin = New Padding(3, 4, 3, 4)
         Name = "formProveedor"
+        Padding = New Padding(3, 85, 3, 4)
         Text = "Proveedor"
         ResumeLayout(False)
         PerformLayout()

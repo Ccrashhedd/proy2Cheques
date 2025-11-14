@@ -61,7 +61,7 @@ Partial Class Form1
         columnTipoDeposito = New DataGridViewTextBoxColumn()
         columnMontoDeposito = New DataGridViewTextBoxColumn()
         columnFechaDeposito = New DataGridViewTextBoxColumn()
-        TabPage3 = New TabPage()
+
         CType(SplitContainer1, ComponentModel.ISupportInitialize).BeginInit()
         SplitContainer1.Panel2.SuspendLayout()
         SplitContainer1.SuspendLayout()
@@ -78,15 +78,20 @@ Partial Class Form1
         ' 
         SplitContainer1.Dock = DockStyle.Fill
         SplitContainer1.IsSplitterFixed = True
-        SplitContainer1.Location = New Point(3, 64)
+        SplitContainer1.Location = New Point(3, 85)
+        SplitContainer1.Margin = New Padding(3, 4, 3, 4)
         SplitContainer1.Name = "SplitContainer1"
         SplitContainer1.Orientation = Orientation.Horizontal
+        ' 
+        ' SplitContainer1.Panel1
+        ' 
         ' 
         ' SplitContainer1.Panel2
         ' 
         SplitContainer1.Panel2.Controls.Add(MaterialTabControl1)
-        SplitContainer1.Size = New Size(981, 601)
-        SplitContainer1.SplitterDistance = 138
+        SplitContainer1.Size = New Size(1122, 802)
+        SplitContainer1.SplitterDistance = 184
+        SplitContainer1.SplitterWidth = 5
         SplitContainer1.TabIndex = 0
         ' 
         ' MaterialTabControl1
@@ -94,25 +99,27 @@ Partial Class Form1
         MaterialTabControl1.Controls.Add(tabPageInicio)
         MaterialTabControl1.Controls.Add(TabPage2)
         MaterialTabControl1.Controls.Add(TabPage1)
-        MaterialTabControl1.Controls.Add(TabPage3)
+
         MaterialTabControl1.Depth = 0
         MaterialTabControl1.Dock = DockStyle.Fill
         MaterialTabControl1.Location = New Point(0, 0)
+        MaterialTabControl1.Margin = New Padding(3, 4, 3, 4)
         MaterialTabControl1.MouseState = MaterialSkin.MouseState.HOVER
         MaterialTabControl1.Multiline = True
         MaterialTabControl1.Name = "MaterialTabControl1"
         MaterialTabControl1.SelectedIndex = 0
-        MaterialTabControl1.Size = New Size(981, 459)
+        MaterialTabControl1.Size = New Size(1122, 613)
         MaterialTabControl1.TabIndex = 0
         ' 
         ' tabPageInicio
         ' 
         tabPageInicio.Controls.Add(Label2)
         tabPageInicio.Controls.Add(Label1)
-        tabPageInicio.Location = New Point(4, 24)
+        tabPageInicio.Location = New Point(4, 29)
+        tabPageInicio.Margin = New Padding(3, 4, 3, 4)
         tabPageInicio.Name = "tabPageInicio"
-        tabPageInicio.Padding = New Padding(3)
-        tabPageInicio.Size = New Size(973, 431)
+        tabPageInicio.Padding = New Padding(3, 4, 3, 4)
+        tabPageInicio.Size = New Size(1114, 580)
         tabPageInicio.TabIndex = 0
         tabPageInicio.Text = "Inicio"
         tabPageInicio.UseVisualStyleBackColor = True
@@ -120,18 +127,18 @@ Partial Class Form1
         ' Label2
         ' 
         Label2.AutoSize = True
-        Label2.Location = New Point(369, 166)
+        Label2.Location = New Point(422, 221)
         Label2.Name = "Label2"
-        Label2.Size = New Size(41, 15)
+        Label2.Size = New Size(53, 20)
         Label2.TabIndex = 1
         Label2.Text = "Label2"
         ' 
         ' Label1
         ' 
         Label1.AutoSize = True
-        Label1.Location = New Point(359, 74)
+        Label1.Location = New Point(410, 99)
         Label1.Name = "Label1"
-        Label1.Size = New Size(41, 15)
+        Label1.Size = New Size(53, 20)
         Label1.TabIndex = 0
         Label1.Text = "Label1"
         ' 
@@ -143,44 +150,49 @@ Partial Class Form1
         TabPage2.Controls.Add(Button1)
         TabPage2.Controls.Add(Label3)
         TabPage2.Controls.Add(DataGridView1)
-        TabPage2.Location = New Point(4, 24)
+        TabPage2.Location = New Point(4, 29)
+        TabPage2.Margin = New Padding(3, 4, 3, 4)
         TabPage2.Name = "TabPage2"
-        TabPage2.Padding = New Padding(3)
-        TabPage2.Size = New Size(973, 431)
+        TabPage2.Padding = New Padding(3, 4, 3, 4)
+        TabPage2.Size = New Size(1114, 580)
         TabPage2.TabIndex = 1
         TabPage2.Text = "Cheques"
         TabPage2.UseVisualStyleBackColor = True
         ' 
         ' Button3
         ' 
-        Button3.Location = New Point(556, 8)
+        Button3.Location = New Point(635, 11)
+        Button3.Margin = New Padding(3, 4, 3, 4)
         Button3.Name = "Button3"
-        Button3.Size = New Size(95, 28)
+        Button3.Size = New Size(109, 37)
         Button3.TabIndex = 6
         Button3.Text = "Objeto Gasto"
         Button3.UseVisualStyleBackColor = True
         ' 
         ' TextBox1
         ' 
-        TextBox1.Location = New Point(123, 17)
+        TextBox1.Location = New Point(141, 23)
+        TextBox1.Margin = New Padding(3, 4, 3, 4)
         TextBox1.Name = "TextBox1"
-        TextBox1.Size = New Size(175, 23)
+        TextBox1.Size = New Size(199, 27)
         TextBox1.TabIndex = 5
         ' 
         ' Button2
         ' 
-        Button2.Location = New Point(666, 8)
+        Button2.Location = New Point(761, 11)
+        Button2.Margin = New Padding(3, 4, 3, 4)
         Button2.Name = "Button2"
-        Button2.Size = New Size(102, 31)
+        Button2.Size = New Size(117, 41)
         Button2.TabIndex = 4
         Button2.Text = "Proveedores"
         Button2.UseVisualStyleBackColor = True
         ' 
         ' Button1
         ' 
-        Button1.Location = New Point(795, 6)
+        Button1.Location = New Point(909, 8)
+        Button1.Margin = New Padding(3, 4, 3, 4)
         Button1.Name = "Button1"
-        Button1.Size = New Size(110, 33)
+        Button1.Size = New Size(126, 44)
         Button1.TabIndex = 3
         Button1.Text = "Nuevo Cheque"
         Button1.UseVisualStyleBackColor = True
@@ -189,9 +201,9 @@ Partial Class Form1
         ' 
         Label3.AutoSize = True
         Label3.Font = New Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
-        Label3.Location = New Point(55, 16)
+        Label3.Location = New Point(63, 21)
         Label3.Name = "Label3"
-        Label3.Size = New Size(62, 20)
+        Label3.Size = New Size(81, 25)
         Label3.TabIndex = 1
         Label3.Text = "Cheque:"
         ' 
@@ -201,66 +213,84 @@ Partial Class Form1
         DataGridView1.AllowUserToDeleteRows = False
         DataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize
         DataGridView1.Columns.AddRange(New DataGridViewColumn() {columnIDCheque, columnFecha, columnMonto, columnProveedor, columnObjGasto, columnFechaAnulacion, columnEstado, columnAnular})
-        DataGridView1.Location = New Point(55, 45)
+        DataGridView1.Location = New Point(63, 60)
+        DataGridView1.Margin = New Padding(3, 4, 3, 4)
         DataGridView1.Name = "DataGridView1"
         DataGridView1.ReadOnly = True
-        DataGridView1.Size = New Size(850, 361)
+        DataGridView1.RowHeadersWidth = 51
+        DataGridView1.Size = New Size(971, 481)
         DataGridView1.TabIndex = 0
         ' 
         ' columnIDCheque
         ' 
         columnIDCheque.Frozen = True
         columnIDCheque.HeaderText = "Numero de cheque"
+        columnIDCheque.MinimumWidth = 6
         columnIDCheque.Name = "columnIDCheque"
         columnIDCheque.ReadOnly = True
+        columnIDCheque.Width = 125
         ' 
         ' columnFecha
         ' 
         columnFecha.Frozen = True
         columnFecha.HeaderText = "Fecha"
+        columnFecha.MinimumWidth = 6
         columnFecha.Name = "columnFecha"
         columnFecha.ReadOnly = True
+        columnFecha.Width = 125
         ' 
         ' columnMonto
         ' 
         columnMonto.Frozen = True
         columnMonto.HeaderText = "Monto"
+        columnMonto.MinimumWidth = 6
         columnMonto.Name = "columnMonto"
         columnMonto.ReadOnly = True
+        columnMonto.Width = 125
         ' 
         ' columnProveedor
         ' 
         columnProveedor.Frozen = True
         columnProveedor.HeaderText = "Proveedor"
+        columnProveedor.MinimumWidth = 6
         columnProveedor.Name = "columnProveedor"
         columnProveedor.ReadOnly = True
+        columnProveedor.Width = 125
         ' 
         ' columnObjGasto
         ' 
         columnObjGasto.Frozen = True
         columnObjGasto.HeaderText = "ObjetoGasto"
+        columnObjGasto.MinimumWidth = 6
         columnObjGasto.Name = "columnObjGasto"
         columnObjGasto.ReadOnly = True
+        columnObjGasto.Width = 125
         ' 
         ' columnFechaAnulacion
         ' 
         columnFechaAnulacion.Frozen = True
         columnFechaAnulacion.HeaderText = "Fecha de anulacion"
+        columnFechaAnulacion.MinimumWidth = 6
         columnFechaAnulacion.Name = "columnFechaAnulacion"
         columnFechaAnulacion.ReadOnly = True
+        columnFechaAnulacion.Width = 125
         ' 
         ' columnEstado
         ' 
         columnEstado.Frozen = True
         columnEstado.HeaderText = "Estado"
+        columnEstado.MinimumWidth = 6
         columnEstado.Name = "columnEstado"
         columnEstado.ReadOnly = True
+        columnEstado.Width = 125
         ' 
         ' columnAnular
         ' 
         columnAnular.HeaderText = "Accion:"
+        columnAnular.MinimumWidth = 6
         columnAnular.Name = "columnAnular"
         columnAnular.ReadOnly = True
+        columnAnular.Width = 125
         ' 
         ' TabPage1
         ' 
@@ -268,10 +298,11 @@ Partial Class Form1
         TabPage1.Controls.Add(Label5)
         TabPage1.Controls.Add(Label4)
         TabPage1.Controls.Add(DataGridView2)
-        TabPage1.Location = New Point(4, 24)
+        TabPage1.Location = New Point(4, 29)
+        TabPage1.Margin = New Padding(3, 4, 3, 4)
         TabPage1.Name = "TabPage1"
-        TabPage1.Padding = New Padding(3)
-        TabPage1.Size = New Size(973, 431)
+        TabPage1.Padding = New Padding(3, 4, 3, 4)
+        TabPage1.Size = New Size(1114, 580)
         TabPage1.TabIndex = 2
         TabPage1.Text = "Depósitos"
         TabPage1.UseVisualStyleBackColor = True
@@ -291,38 +322,38 @@ Partial Class Form1
         MaterialCard1.Controls.Add(Label6)
         MaterialCard1.Depth = 0
         MaterialCard1.ForeColor = Color.FromArgb(CByte(222), CByte(0), CByte(0), CByte(0))
-        MaterialCard1.Location = New Point(540, 10)
-        MaterialCard1.Margin = New Padding(14)
+        MaterialCard1.Location = New Point(617, 13)
+        MaterialCard1.Margin = New Padding(16, 19, 16, 19)
         MaterialCard1.MouseState = MaterialSkin.MouseState.HOVER
         MaterialCard1.Name = "MaterialCard1"
-        MaterialCard1.Padding = New Padding(14)
-        MaterialCard1.Size = New Size(416, 335)
+        MaterialCard1.Padding = New Padding(16, 19, 16, 19)
+        MaterialCard1.Size = New Size(475, 447)
         MaterialCard1.TabIndex = 3
         ' 
         ' Label10
         ' 
         Label10.AutoSize = True
-        Label10.Location = New Point(98, 243)
+        Label10.Location = New Point(112, 324)
         Label10.Name = "Label10"
-        Label10.Size = New Size(41, 15)
+        Label10.Size = New Size(50, 20)
         Label10.TabIndex = 9
         Label10.Text = "Fecha:"
         ' 
         ' Label9
         ' 
         Label9.AutoSize = True
-        Label9.Location = New Point(47, 149)
+        Label9.Location = New Point(54, 199)
         Label9.Name = "Label9"
-        Label9.Size = New Size(93, 15)
+        Label9.Size = New Size(116, 20)
         Label9.TabIndex = 8
         Label9.Text = "Monto en letras:"
         ' 
         ' Label8
         ' 
         Label8.AutoSize = True
-        Label8.Location = New Point(93, 101)
+        Label8.Location = New Point(106, 135)
         Label8.Name = "Label8"
-        Label8.Size = New Size(46, 15)
+        Label8.Size = New Size(56, 20)
         Label8.TabIndex = 7
         Label8.Text = "Monto:"
         ' 
@@ -333,8 +364,8 @@ Partial Class Form1
         MaterialButton1.Depth = 0
         MaterialButton1.HighEmphasis = True
         MaterialButton1.Icon = Nothing
-        MaterialButton1.Location = New Point(143, 278)
-        MaterialButton1.Margin = New Padding(4, 6, 4, 6)
+        MaterialButton1.Location = New Point(163, 371)
+        MaterialButton1.Margin = New Padding(5, 8, 5, 8)
         MaterialButton1.MouseState = MaterialSkin.MouseState.HOVER
         MaterialButton1.Name = "MaterialButton1"
         MaterialButton1.NoAccentTextColor = Color.Empty
@@ -347,40 +378,44 @@ Partial Class Form1
         ' 
         ' DateTimePicker1
         ' 
-        DateTimePicker1.Location = New Point(171, 237)
+        DateTimePicker1.Location = New Point(195, 316)
+        DateTimePicker1.Margin = New Padding(3, 4, 3, 4)
         DateTimePicker1.Name = "DateTimePicker1"
-        DateTimePicker1.Size = New Size(228, 23)
+        DateTimePicker1.Size = New Size(260, 27)
         DateTimePicker1.TabIndex = 5
         ' 
         ' RichTextBox1
         ' 
-        RichTextBox1.Location = New Point(68, 167)
+        RichTextBox1.Location = New Point(78, 223)
+        RichTextBox1.Margin = New Padding(3, 4, 3, 4)
         RichTextBox1.Name = "RichTextBox1"
-        RichTextBox1.Size = New Size(298, 45)
+        RichTextBox1.Size = New Size(340, 59)
         RichTextBox1.TabIndex = 4
         RichTextBox1.Text = ""
         ' 
         ' TextBox2
         ' 
-        TextBox2.Location = New Point(171, 98)
+        TextBox2.Location = New Point(195, 131)
+        TextBox2.Margin = New Padding(3, 4, 3, 4)
         TextBox2.Name = "TextBox2"
-        TextBox2.Size = New Size(100, 23)
+        TextBox2.Size = New Size(114, 27)
         TextBox2.TabIndex = 3
         ' 
         ' ComboBox1
         ' 
         ComboBox1.FormattingEnabled = True
-        ComboBox1.Location = New Point(171, 46)
+        ComboBox1.Location = New Point(195, 61)
+        ComboBox1.Margin = New Padding(3, 4, 3, 4)
         ComboBox1.Name = "ComboBox1"
-        ComboBox1.Size = New Size(121, 23)
+        ComboBox1.Size = New Size(138, 28)
         ComboBox1.TabIndex = 2
         ' 
         ' Label7
         ' 
         Label7.AutoSize = True
-        Label7.Location = New Point(39, 49)
+        Label7.Location = New Point(45, 65)
         Label7.Name = "Label7"
-        Label7.Size = New Size(100, 15)
+        Label7.Size = New Size(128, 20)
         Label7.TabIndex = 1
         Label7.Text = "Tipo de Depósito:"
         ' 
@@ -388,26 +423,26 @@ Partial Class Form1
         ' 
         Label6.AutoSize = True
         Label6.Font = New Font("Segoe UI", 14.25F, FontStyle.Bold Or FontStyle.Underline, GraphicsUnit.Point, CByte(0))
-        Label6.Location = New Point(16, 14)
+        Label6.Location = New Point(18, 19)
         Label6.Name = "Label6"
-        Label6.Size = New Size(156, 25)
+        Label6.Size = New Size(199, 32)
         Label6.TabIndex = 0
         Label6.Text = "Nuevo Depósito"
         ' 
         ' Label5
         ' 
         Label5.AutoSize = True
-        Label5.Location = New Point(550, 25)
+        Label5.Location = New Point(629, 33)
         Label5.Name = "Label5"
-        Label5.Size = New Size(0, 15)
+        Label5.Size = New Size(0, 20)
         Label5.TabIndex = 2
         ' 
         ' Label4
         ' 
         Label4.AutoSize = True
-        Label4.Location = New Point(550, 10)
+        Label4.Location = New Point(629, 13)
         Label4.Name = "Label4"
-        Label4.Size = New Size(0, 15)
+        Label4.Size = New Size(0, 20)
         Label4.TabIndex = 1
         ' 
         ' DataGridView2
@@ -416,58 +451,61 @@ Partial Class Form1
         DataGridView2.AllowUserToDeleteRows = False
         DataGridView2.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize
         DataGridView2.Columns.AddRange(New DataGridViewColumn() {columnIdDeposito, columnTipoDeposito, columnMontoDeposito, columnFechaDeposito})
-        DataGridView2.Location = New Point(15, 32)
+        DataGridView2.Location = New Point(17, 43)
+        DataGridView2.Margin = New Padding(3, 4, 3, 4)
         DataGridView2.Name = "DataGridView2"
         DataGridView2.ReadOnly = True
-        DataGridView2.Size = New Size(465, 384)
+        DataGridView2.RowHeadersWidth = 51
+        DataGridView2.Size = New Size(531, 512)
         DataGridView2.TabIndex = 0
         ' 
         ' columnIdDeposito
         ' 
         columnIdDeposito.Frozen = True
         columnIdDeposito.HeaderText = "ID Depósito"
+        columnIdDeposito.MinimumWidth = 6
         columnIdDeposito.Name = "columnIdDeposito"
         columnIdDeposito.ReadOnly = True
+        columnIdDeposito.Width = 125
         ' 
         ' columnTipoDeposito
         ' 
         columnTipoDeposito.Frozen = True
         columnTipoDeposito.HeaderText = "Tipo de Depósito"
+        columnTipoDeposito.MinimumWidth = 6
         columnTipoDeposito.Name = "columnTipoDeposito"
         columnTipoDeposito.ReadOnly = True
+        columnTipoDeposito.Width = 125
         ' 
         ' columnMontoDeposito
         ' 
         columnMontoDeposito.Frozen = True
         columnMontoDeposito.HeaderText = "Monto"
+        columnMontoDeposito.MinimumWidth = 6
         columnMontoDeposito.Name = "columnMontoDeposito"
         columnMontoDeposito.ReadOnly = True
+        columnMontoDeposito.Width = 125
         ' 
         ' columnFechaDeposito
         ' 
         columnFechaDeposito.Frozen = True
         columnFechaDeposito.HeaderText = "Fecha de Depósito"
+        columnFechaDeposito.MinimumWidth = 6
         columnFechaDeposito.Name = "columnFechaDeposito"
         columnFechaDeposito.ReadOnly = True
+        columnFechaDeposito.Width = 125
         ' 
-        ' TabPage3
-        ' 
-        TabPage3.Location = New Point(4, 24)
-        TabPage3.Name = "TabPage3"
-        TabPage3.Padding = New Padding(3)
-        TabPage3.Size = New Size(973, 431)
-        TabPage3.TabIndex = 3
-        TabPage3.Text = "Conciliación"
-        TabPage3.UseVisualStyleBackColor = True
-        ' 
+
         ' Form1
         ' 
-        AutoScaleDimensions = New SizeF(7F, 15F)
+        AutoScaleDimensions = New SizeF(8F, 20F)
         AutoScaleMode = AutoScaleMode.Font
-        ClientSize = New Size(987, 668)
+        ClientSize = New Size(1128, 891)
         Controls.Add(SplitContainer1)
         DrawerTabControl = MaterialTabControl1
+        Margin = New Padding(3, 4, 3, 4)
         Name = "Form1"
+        Padding = New Padding(3, 85, 3, 4)
         Text = "Form1"
         SplitContainer1.Panel2.ResumeLayout(False)
         CType(SplitContainer1, ComponentModel.ISupportInitialize).EndInit()
@@ -490,7 +528,7 @@ Partial Class Form1
     Friend WithEvents MaterialTabControl1 As MaterialSkin.Controls.MaterialTabControl
     Friend WithEvents tabPageInicio As TabPage
     Friend WithEvents TabPage2 As TabPage
-    Friend WithEvents TabPage3 As TabPage
+
     Friend WithEvents Label2 As Label
     Friend WithEvents Label1 As Label
     Friend WithEvents DataGridView1 As DataGridView

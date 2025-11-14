@@ -38,10 +38,10 @@ Module moduloDeposito
     Public Function ObtenerDepositos() As DataTable
         Dim dt As New DataTable()
         Try
-            Dim sql As String = "SELECT d.idDeposito AS idDeposito, d.tipoDeposito AS tipoDeposito, " & _
-                                "COALESCE(td.nombre, '') AS tipoNombre, d.monto AS monto, d.fechaDeposito AS fechaDeposito " & _
-                                "FROM depositos d " & _
-                                "LEFT JOIN TIPO_DEPOSITO td ON d.tipoDeposito = td.idTipoDepo " & _
+            Dim sql As String = "SELECT d.idDeposito AS idDeposito, d.tipoDeposito AS tipoDeposito, " &
+                                "COALESCE(td.nombre, '') AS tipoNombre, d.monto AS monto, d.fechaDeposito AS fechaDeposito " &
+                                "FROM depositos d " &
+                                "LEFT JOIN TIPO_DEPOSITO td ON d.tipoDeposito = td.idTipoDepo " &
                                 "ORDER BY d.fechaDeposito DESC, d.idDeposito ASC;"
             Using da As New MySqlDataAdapter(sql, miconexion)
                 da.Fill(dt)
